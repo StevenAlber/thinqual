@@ -229,11 +229,11 @@
       margin-bottom: 1.1rem;
     }
 
+    /* PARANDUS: enam pole tumedat gradienti, puhas hele tekst */
     .hero-title span {
-      background: linear-gradient(120deg, var(--tx) 0%, #A1AECF 40%, rgba(227,231,244,0.35) 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--tx);
+      -webkit-text-fill-color: var(--tx);
+      background: none;
     }
 
     .hero-lead {
@@ -425,6 +425,21 @@
       height: 6px;
       border-radius: 999px;
       background: var(--warn);
+    }
+
+    /* PARANDUS: alumine rida, et Session ei oleks liiga servas */
+    .score-bottom {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 6px;
+    }
+
+    .score-meta {
+      font-size: 0.75rem;
+      color: var(--tx-faint);
+      font-family: 'IBM Plex Mono', monospace;
     }
 
     /* STATS BAR */
@@ -1191,7 +1206,7 @@
       color: var(--tx);
     }
 
-    /* REVEAL ANIMATIONS (simple) */
+    /* REVEAL ANIMATIONS */
 
     .rv {
       opacity: 0;
@@ -1204,7 +1219,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
   </style>
 </head>
 <body>
@@ -1336,14 +1350,12 @@
                 </div>
               </div>
 
-              <div style="margin-top:0.9rem; display:flex; justify-content:space-between; align-items:center;">
+              <div class="score-bottom">
                 <span class="badge-risk">
                   <span class="badge-risk-dot"></span>
                   Delegation risk rising
                 </span>
-                <span style="font-size:0.75rem;color:var(--tx-faint);font-family:'IBM Plex Mono',monospace;">
-                  Session 184 · v0.9
-                </span>
+                <span class="score-meta">Session 184 · v0.9</span>
               </div>
             </aside>
           </div>
@@ -1756,10 +1768,9 @@
     const scoreRing = document.getElementById("scoreRing");
     const scoreValue = document.getElementById("scoreValue");
     const targetScore = 73;
-    const ringLength = 603; // 2 * PI * r ~ 2*pi*96
+    const ringLength = 603;
 
     function animateScore() {
-      let current = 0;
       const duration = 1800;
       const start = performance.now();
 
@@ -1799,15 +1810,15 @@
             counter.textContent = "0";
             return;
           }
-          let current = 0;
           const duration = 1600;
           const start = performance.now();
 
           function step(now) {
             const t = Math.min(1, (now - start) / duration);
             const eased = 1 - Math.pow(1 - t, 3);
-            current = Math.round(target * eased * 10) / 10;
-            counter.textContent = target >= 10 ? Math.round(current) : current.toFixed(1);
+            let current = target * eased;
+            current = target >= 10 ? Math.round(current) : Math.round(current * 10) / 10;
+            counter.textContent = target >= 10 ? current : current.toFixed(1);
             if (t < 1) requestAnimationFrame(step);
           }
           requestAnimationFrame(step);
