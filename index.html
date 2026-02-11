@@ -5,11 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#06090F">
-<title>ThinQual &#8212; Cognitive Fitness for the AI Age</title>
+<title>ThinQual — Cognitive Fitness for the AI Age</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
 :root {
   --void: #06090F;
   --surface: #0C1018;
@@ -35,565 +38,618 @@
   --bdr-lt: rgba(0,0,0,0.07);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+- { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-  font-family: 'Karla', sans-serif;
-  background: var(--void);
-  color: var(--tx);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+font-family: ‘Karla’, sans-serif;
+background: var(–void);
+color: var(–tx);
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
 }
 
+/* Film grain */
 body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9999;
+content: ‘’;
+position: fixed; inset: 0;
+background: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 512 512’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.75’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events: none; z-index: 9999;
 }
 
 .wrap { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
 
+/* ═══════════════════════════════════════════
+SCROLL REVEAL
+═══════════════════════════════════════════ */
 .rv {
-  opacity: 0; transform: translateY(28px);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+opacity: 0; transform: translateY(28px);
+transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .rv.on { opacity: 1; transform: translateY(0); }
 
+/* ═══════════════════════════════════════════
+NAVIGATION
+═══════════════════════════════════════════ */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1rem 2rem;
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(6,9,15,0.7);
-  backdrop-filter: blur(30px);
-  border-bottom: 1px solid var(--bdr);
-  transition: background 0.4s;
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+padding: 1rem 2rem;
+display: flex; justify-content: space-between; align-items: center;
+background: rgba(6,9,15,0.7);
+backdrop-filter: blur(30px);
+border-bottom: 1px solid var(–bdr);
+transition: background 0.4s;
 }
 nav.solid { background: rgba(6,9,15,0.95); }
 
 .brand {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.1rem; font-weight: 600; color: var(--tx);
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 1.1rem; font-weight: 600; color: var(–tx);
 }
-.brand b { color: var(--sig); font-weight: 600; }
+.brand b { color: var(–sig); font-weight: 600; }
 
 .nav-r { display: flex; align-items: center; gap: 2rem; }
 
 .nav-a {
-  font-size: 0.85rem; color: var(--tx-dim);
-  text-decoration: none; transition: color 0.3s;
+font-size: 0.85rem; color: var(–tx-dim);
+text-decoration: none; transition: color 0.3s;
 }
-.nav-a:hover { color: var(--tx); }
+.nav-a:hover { color: var(–tx); }
 
 .nav-btn {
-  font-family: 'Karla', sans-serif; font-size: 0.85rem; font-weight: 600;
-  padding: 0.55rem 1.4rem; border-radius: 6px;
-  border: 1px solid var(--bdr-sig);
-  background: var(--sig-dim); color: var(--sig);
-  cursor: pointer; transition: all 0.3s;
+font-family: ‘Karla’, sans-serif; font-size: 0.85rem; font-weight: 600;
+padding: 0.55rem 1.4rem; border-radius: 6px;
+border: 1px solid var(–bdr-sig);
+background: var(–sig-dim); color: var(–sig);
+cursor: pointer; transition: all 0.3s;
 }
 .nav-btn:hover {
-  background: var(--sig); color: var(--void);
-  box-shadow: 0 0 30px var(--sig-glow);
+background: var(–sig); color: var(–void);
+box-shadow: 0 0 30px var(–sig-glow);
 }
 
+/* ═══════════════════════════════════════════
+HERO (DARK)
+═══════════════════════════════════════════ */
 .hero {
-  min-height: 100vh; display: flex; align-items: center;
-  position: relative; overflow: hidden; padding-top: 5rem;
+min-height: 100vh; display: flex; align-items: center;
+position: relative; overflow: hidden; padding-top: 5rem;
 }
 
 #neuro { position: absolute; inset: 0; z-index: 0; }
 
 .hero-g {
-  position: relative; z-index: 2;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: center;
+position: relative; z-index: 2;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 4rem; align-items: center;
 }
 
 .hero-l { position: relative; }
 
 .badge-top {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; font-weight: 500; color: var(--sig);
-  letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 2rem;
-  opacity: 0; animation: fi 0.8s ease 0.3s forwards;
+display: inline-flex; align-items: center; gap: 0.6rem;
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.72rem; font-weight: 500; color: var(–sig);
+letter-spacing: 0.12em; text-transform: uppercase;
+margin-bottom: 2rem;
+opacity: 0; animation: fi 0.8s ease 0.3s forwards;
 }
 .badge-top .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--sig); box-shadow: 0 0 12px var(--sig-glow);
-  animation: blink 2s ease-in-out infinite;
+width: 8px; height: 8px; border-radius: 50%;
+background: var(–sig); box-shadow: 0 0 12px var(–sig-glow);
+animation: blink 2s ease-in-out infinite;
 }
 @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
 .hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.6rem, 5vw, 4rem);
-  font-weight: 700; line-height: 1.08; letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  opacity: 0; animation: fsu 1s ease 0.5s forwards;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2.6rem, 5vw, 4rem);
+font-weight: 700; line-height: 1.08; letter-spacing: -0.02em;
+margin-bottom: 1.5rem;
+opacity: 0; animation: fsu 1s ease 0.5s forwards;
 }
 
 .erode {
-  background: linear-gradient(90deg, var(--tx) 0%, var(--tx) 55%, rgba(216,221,232,0.25) 80%, rgba(216,221,232,0.05) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 300% 100%;
-  animation: txt-erode 5s ease-in-out infinite alternate;
+background: linear-gradient(90deg, var(–tx) 0%, var(–tx) 55%, rgba(216,221,232,0.25) 80%, rgba(216,221,232,0.05) 100%);
+-webkit-background-clip: text; background-clip: text;
+-webkit-text-fill-color: transparent;
+background-size: 300% 100%;
+animation: txt-erode 5s ease-in-out infinite alternate;
 }
 @keyframes txt-erode { 0%{background-position:0% 0%} 100%{background-position:100% 0%} }
 
 .hero-p {
-  font-size: 1.05rem; line-height: 1.7; color: var(--tx-dim);
-  max-width: 460px; margin-bottom: 2.5rem;
-  opacity: 0; animation: fsu 1s ease 0.7s forwards;
+font-size: 1.05rem; line-height: 1.7; color: var(–tx-dim);
+max-width: 460px; margin-bottom: 2.5rem;
+opacity: 0; animation: fsu 1s ease 0.7s forwards;
 }
 
 .hero-btns {
-  display: flex; gap: 1rem;
-  opacity: 0; animation: fsu 1s ease 0.9s forwards;
+display: flex; gap: 1rem;
+opacity: 0; animation: fsu 1s ease 0.9s forwards;
 }
 
 .btn-s {
-  font-family: 'Karla', sans-serif; font-size: 0.95rem; font-weight: 600;
-  padding: 0.9rem 2rem; border: none; border-radius: 8px;
-  background: var(--sig); color: var(--void);
-  cursor: pointer; transition: all 0.3s;
+font-family: ‘Karla’, sans-serif; font-size: 0.95rem; font-weight: 600;
+padding: 0.9rem 2rem; border: none; border-radius: 8px;
+background: var(–sig); color: var(–void);
+cursor: pointer; transition: all 0.3s;
 }
-.btn-s:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(--sig-glow); }
+.btn-s:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(–sig-glow); }
 
 .btn-g {
-  font-family: 'Karla', sans-serif; font-size: 0.95rem; font-weight: 600;
-  padding: 0.9rem 2rem; border: 1px solid var(--bdr); border-radius: 8px;
-  background: transparent; color: var(--tx);
-  cursor: pointer; transition: all 0.3s; text-decoration: none;
+font-family: ‘Karla’, sans-serif; font-size: 0.95rem; font-weight: 600;
+padding: 0.9rem 2rem; border: 1px solid var(–bdr); border-radius: 8px;
+background: transparent; color: var(–tx);
+cursor: pointer; transition: all 0.3s; text-decoration: none;
 }
 .btn-g:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
 
+/* Score visualization */
 .hero-r {
-  display: flex; justify-content: center; align-items: center;
-  opacity: 0; animation: fi 1.5s ease 1s forwards;
+display: flex; justify-content: center; align-items: center;
+opacity: 0; animation: fi 1.5s ease 1s forwards;
 }
 
-.score-wrap { position: relative; width: 380px; height: 380px; }
+.score-wrap { position: relative; width: 380px; height: 380px; max-width: 100%; }
 
 .score-svg {
-  width: 100%; height: 100%;
-  filter: drop-shadow(0 0 40px rgba(0,212,170,0.1));
+width: 100%; height: 100%;
+filter: drop-shadow(0 0 40px rgba(0,212,170,0.1));
 }
 .sr-bg { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 3; }
 .sr-fill {
-  fill: none; stroke: url(#sg); stroke-width: 3; stroke-linecap: round;
-  stroke-dasharray: 1005; stroke-dashoffset: 1005;
-  animation: ring-in 2.5s ease-out 1.5s forwards;
-  transform: rotate(-90deg); transform-origin: center;
+fill: none; stroke: url(#sg); stroke-width: 3; stroke-linecap: round;
+stroke-dasharray: 1005; stroke-dashoffset: 1005;
+animation: ring-in 2.5s ease-out 1.5s forwards;
+transform: rotate(-90deg); transform-origin: center;
 }
 @keyframes ring-in { to { stroke-dashoffset: 275; } }
 
 .sr-warn {
-  fill: none; stroke: var(--warn); stroke-width: 2;
-  stroke-dasharray: 8 16; opacity: 0.3;
-  animation: spin 20s linear infinite; transform-origin: center;
+fill: none; stroke: var(–warn); stroke-width: 2;
+stroke-dasharray: 8 16; opacity: 0.3;
+animation: spin 20s linear infinite; transform-origin: center;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .sc-g { text-anchor: middle; }
-.sc-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--tx-dim); letter-spacing: 2px; }
-.sc-num { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 700; fill: var(--sig); }
-.sc-dlt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; fill: var(--warn); }
+.sc-lbl { font-family: ‘IBM Plex Mono’, monospace; font-size: 9px; fill: var(–tx-dim); letter-spacing: 2px; }
+.sc-num { font-family: ‘Cormorant Garamond’, serif; font-size: 72px; font-weight: 700; fill: var(–sig); }
+.sc-dlt { font-family: ‘IBM Plex Mono’, monospace; font-size: 11px; fill: var(–warn); }
 
 .fl {
-  position: absolute; font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem; color: var(--tx-faint); white-space: nowrap;
-  opacity: 0; animation: fli 1s ease forwards;
+position: absolute; font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.65rem; color: var(–tx-faint); white-space: nowrap;
+opacity: 0; animation: fli 1s ease forwards;
 }
 .fl b { font-weight: 600; }
-.fl .g { color: var(--sig); } .fl .r { color: var(--warn); }
+.fl .g { color: var(–sig); } .fl .r { color: var(–warn); }
 .fl-1 { top: 15%; right: -10px; animation-delay: 2s; }
 .fl-2 { top: 42%; left: -30px; animation-delay: 2.3s; }
 .fl-3 { bottom: 25%; right: -20px; animation-delay: 2.6s; }
 .fl-4 { bottom: 8%; left: 0; animation-delay: 2.9s; }
 @keyframes fli { from{opacity:0;transform:translateX(10px)} to{opacity:0.7;transform:translateX(0)} }
 
+/* ═══════════════════════════════════════════
+STATS BAR (transition strip)
+═══════════════════════════════════════════ */
 .stats {
-  border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr);
-  background: var(--surface); padding: 2.5rem 0; position: relative;
+border-top: 1px solid var(–bdr); border-bottom: 1px solid var(–bdr);
+background: var(–surface); padding: 2.5rem 0; position: relative;
 }
 .stats::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--sig), transparent);
-  opacity: 0.3;
+content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+background: linear-gradient(90deg, transparent, var(–sig), transparent);
+opacity: 0.3;
 }
 .stats-row { display: flex; justify-content: center; gap: 5rem; }
-.st-n { font-family: 'IBM Plex Mono', monospace; font-size: 2.2rem; font-weight: 600; color: var(--tx); text-align: center; }
-.st-n b { color: var(--sig); font-size: 1.1rem; font-weight: 500; }
-.st-l { font-size: 0.8rem; color: var(--tx-dim); margin-top: 0.3rem; text-align: center; }
+.st-n { font-family: ‘IBM Plex Mono’, monospace; font-size: 2.2rem; font-weight: 600; color: var(–tx); text-align: center; }
+.st-n b { color: var(–sig); font-size: 1.1rem; font-weight: 500; }
+.st-l { font-size: 0.8rem; color: var(–tx-dim); margin-top: 0.3rem; text-align: center; }
 
+/* ═══════════════════════════════════════════
+SHARED SECTION TOOLS
+═══════════════════════════════════════════ */
 section { padding: 7rem 0; }
 
 .marker {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; margin-bottom: 1.5rem;
-  display: flex; align-items: center; gap: 0.75rem;
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+text-transform: uppercase; margin-bottom: 1.5rem;
+display: flex; align-items: center; gap: 0.75rem;
 }
-.marker::before { content: ''; width: 24px; height: 1px; }
-.mk-s { color: var(--sig); } .mk-s::before { background: var(--sig); }
-.mk-d { color: var(--tx-dark-dim); } .mk-d::before { background: var(--tx-dark-dim); }
-.mk-w { color: var(--warn); } .mk-w::before { background: var(--warn); }
+.marker::before { content: ‘’; width: 24px; height: 1px; }
+.mk-s { color: var(–sig); } .mk-s::before { background: var(–sig); }
+.mk-d { color: var(–tx-dark-dim); } .mk-d::before { background: var(–tx-dark-dim); }
+.mk-w { color: var(–warn); } .mk-w::before { background: var(–warn); }
 
 .stitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700; line-height: 1.12; letter-spacing: -0.015em;
-  margin-bottom: 1.25rem;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2rem, 4vw, 3rem);
+font-weight: 700; line-height: 1.12; letter-spacing: -0.015em;
+margin-bottom: 1.25rem;
 }
 
 .sdesc { font-size: 1.05rem; line-height: 1.7; max-width: 620px; }
 
-.science { background: var(--cream); color: var(--tx-dark); }
+/* ═══════════════════════════════════════════
+SCIENCE (CREAM/LIGHT)
+═══════════════════════════════════════════ */
+.science { background: var(–cream); color: var(–tx-dark); }
 
 .sci-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4.5rem; align-items: start;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 4.5rem; align-items: start;
 }
 
-.sci-txt p { font-size: 1.05rem; line-height: 1.8; color: var(--tx-dark-dim); margin-bottom: 1.5rem; }
-.sci-txt strong { color: var(--tx-dark); font-weight: 700; }
+.sci-txt p { font-size: 1.05rem; line-height: 1.8; color: var(–tx-dark-dim); margin-bottom: 1.5rem; }
+.sci-txt strong { color: var(–tx-dark); font-weight: 700; }
 
 .callout {
-  border-left: 3px solid var(--warn); padding: 1.25rem 1.5rem;
-  background: var(--warn-dim); border-radius: 0 10px 10px 0; margin: 2rem 0;
+border-left: 3px solid var(–warn); padding: 1.25rem 1.5rem;
+background: var(–warn-dim); border-radius: 0 10px 10px 0; margin: 2rem 0;
 }
 .callout p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem; font-style: italic; line-height: 1.6;
-  color: var(--tx-dark); margin: 0 !important;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.15rem; font-style: italic; line-height: 1.6;
+color: var(–tx-dark); margin: 0 !important;
 }
 
+/* Meters on light bg */
 .meters { display: flex; flex-direction: column; gap: 1.25rem; }
 
 .mtr {
-  background: var(--white); border: 1px solid var(--bdr-lt);
-  border-radius: 12px; padding: 1.25rem 1.5rem;
-  position: relative; overflow: hidden; transition: all 0.3s;
+background: var(–white); border: 1px solid var(–bdr-lt);
+border-radius: 12px; padding: 1.25rem 1.5rem;
+position: relative; overflow: hidden; transition: all 0.3s;
 }
 .mtr:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.06); }
 
 .mtr::after {
-  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 3px;
-  border-radius: 0 12px 12px 0;
+content: ‘’; position: absolute; top: 0; right: 0; bottom: 0; width: 3px;
+border-radius: 0 12px 12px 0;
 }
-.mtr.s-h::after { background: var(--warn); }
-.mtr.s-m::after { background: var(--amber); }
-.mtr.s-l::after { background: var(--sig); }
+.mtr.s-h::after { background: var(–warn); }
+.mtr.s-m::after { background: var(–amber); }
+.mtr.s-l::after { background: var(–sig); }
 
 .mtr-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
-.mtr-name { font-size: 0.9rem; font-weight: 700; color: var(--tx-dark); }
-.mtr-pct { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 600; }
-.mtr-pct.h { color: var(--warn); } .mtr-pct.m { color: var(--amber); } .mtr-pct.l { color: var(--sig); }
+.mtr-name { font-size: 0.9rem; font-weight: 700; color: var(–tx-dark); }
+.mtr-pct { font-family: ‘IBM Plex Mono’, monospace; font-size: 0.78rem; font-weight: 600; }
+.mtr-pct.h { color: var(–warn); } .mtr-pct.m { color: var(–amber); } .mtr-pct.l { color: var(–sig); }
 
-.mtr-track { height: 5px; background: var(--cream-2); border-radius: 3px; overflow: hidden; }
+.mtr-track { height: 5px; background: var(–cream-2); border-radius: 3px; overflow: hidden; }
 .mtr-bar { height: 100%; border-radius: 3px; width: 0; transition: width 1.6s cubic-bezier(0.16,1,0.3,1); }
-.mtr-bar.h { background: linear-gradient(90deg, var(--warn), #ff8f77); }
-.mtr-bar.m { background: linear-gradient(90deg, var(--amber), #ffc060); }
-.mtr-bar.l { background: linear-gradient(90deg, var(--sig), #40e8c0); }
+.mtr-bar.h { background: linear-gradient(90deg, var(–warn), #ff8f77); }
+.mtr-bar.m { background: linear-gradient(90deg, var(–amber), #ffc060); }
+.mtr-bar.l { background: linear-gradient(90deg, var(–sig), #40e8c0); }
 
-.mtr-sub { font-size: 0.78rem; color: var(--tx-dark-dim); margin-top: 0.5rem; }
+.mtr-sub { font-size: 0.78rem; color: var(–tx-dark-dim); margin-top: 0.5rem; }
 
-.timeline { background: var(--void); position: relative; overflow: hidden; }
+/* ═══════════════════════════════════════════
+TIMELINE (DARK)
+═══════════════════════════════════════════ */
+.timeline { background: var(–void); position: relative; overflow: hidden; }
 .timeline::before {
-  content: ''; position: absolute; top: 50%; left: -10%; width: 120%; height: 300px;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, rgba(0,212,170,0.03), rgba(240,160,48,0.03), rgba(255,90,60,0.03), rgba(255,32,32,0.03));
-  filter: blur(80px);
+content: ‘’; position: absolute; top: 50%; left: 0; width: 100%; height: 300px;
+transform: translateY(-50%);
+background: linear-gradient(90deg, rgba(0,212,170,0.03), rgba(240,160,48,0.03), rgba(255,90,60,0.03), rgba(255,32,32,0.03));
+filter: blur(80px);
 }
 
 .tl-g {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem; margin-top: 3.5rem; position: relative;
+display: grid; grid-template-columns: repeat(4, 1fr);
+gap: 1.5rem; margin-top: 3.5rem; position: relative;
 }
 
 .tl-c {
-  background: var(--surface); border: 1px solid var(--bdr);
-  border-radius: 12px; padding: 2rem 1.5rem;
-  position: relative; overflow: hidden; transition: all 0.4s;
+background: var(–surface); border: 1px solid var(–bdr);
+border-radius: 12px; padding: 2rem 1.5rem;
+position: relative; overflow: hidden; transition: all 0.4s;
 }
 .tl-c:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
 
-.tl-c::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-.tl-c:nth-child(1)::before { background: var(--sig); }
-.tl-c:nth-child(2)::before { background: var(--amber); }
-.tl-c:nth-child(3)::before { background: var(--warn); }
+.tl-c::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.tl-c:nth-child(1)::before { background: var(–sig); }
+.tl-c:nth-child(2)::before { background: var(–amber); }
+.tl-c:nth-child(3)::before { background: var(–warn); }
 .tl-c:nth-child(4)::before { background: #ff2020; }
 
 .tl-y {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.75rem;
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.75rem;
 }
-.tl-c:nth-child(1) .tl-y { color: var(--sig); }
-.tl-c:nth-child(2) .tl-y { color: var(--amber); }
-.tl-c:nth-child(3) .tl-y { color: var(--warn); }
+.tl-c:nth-child(1) .tl-y { color: var(–sig); }
+.tl-c:nth-child(2) .tl-y { color: var(–amber); }
+.tl-c:nth-child(3) .tl-y { color: var(–warn); }
 .tl-c:nth-child(4) .tl-y { color: #ff2020; }
 
-.tl-t { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 700; color: var(--tx); margin-bottom: 0.6rem; }
-.tl-d { font-size: 0.88rem; line-height: 1.6; color: var(--tx-dim); }
+.tl-t { font-family: ‘Cormorant Garamond’, serif; font-size: 1.25rem; font-weight: 700; color: var(–tx); margin-bottom: 0.6rem; }
+.tl-d { font-size: 0.88rem; line-height: 1.6; color: var(–tx-dim); }
 
 .tl-ph {
-  position: absolute; bottom: 1rem; right: 1rem;
-  font-family: 'IBM Plex Mono', monospace; font-size: 2.5rem;
-  font-weight: 600; opacity: 0.04; line-height: 1;
+position: absolute; bottom: 1rem; right: 1rem;
+font-family: ‘IBM Plex Mono’, monospace; font-size: 2.5rem;
+font-weight: 600; opacity: 0.04; line-height: 1;
 }
 
-.solution { background: var(--cream); color: var(--tx-dark); }
+/* ═══════════════════════════════════════════
+SOLUTION (CREAM/LIGHT)
+═══════════════════════════════════════════ */
+.solution { background: var(–cream); color: var(–tx-dark); }
 
 .sol-g {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem; margin-top: 3rem;
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem; margin-top: 3rem;
 }
 
 .sol-c {
-  background: var(--white); border: 1px solid var(--bdr-lt);
-  border-radius: 14px; padding: 2.5rem 2rem;
-  position: relative; overflow: hidden; transition: all 0.4s;
+background: var(–white); border: 1px solid var(–bdr-lt);
+border-radius: 14px; padding: 2.5rem 2rem;
+position: relative; overflow: hidden; transition: all 0.4s;
 }
-.sol-c::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-.sol-c:nth-child(1)::before { background: var(--sig); }
+.sol-c::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.sol-c:nth-child(1)::before { background: var(–sig); }
 .sol-c:nth-child(2)::before { background: #4a9eff; }
-.sol-c:nth-child(3)::before { background: var(--amber); }
+.sol-c:nth-child(3)::before { background: var(–amber); }
 
 .sol-c:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 
 .sol-ico {
-  width: 48px; height: 48px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.5rem; font-size: 1.25rem; position: relative;
+width: 48px; height: 48px; border-radius: 12px;
+display: flex; align-items: center; justify-content: center;
+margin-bottom: 1.5rem; font-size: 1.25rem; position: relative;
 }
 .sol-ico.a { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.18); }
 .sol-ico.b { background: rgba(74,158,255,0.08); border: 1px solid rgba(74,158,255,0.18); }
 .sol-ico.c { background: rgba(240,160,48,0.08); border: 1px solid rgba(240,160,48,0.18); }
 
 .sol-abbr {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
-  margin-bottom: 0.75rem; display: block;
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+margin-bottom: 0.75rem; display: block;
 }
-.sol-c:nth-child(1) .sol-abbr { color: var(--sig); }
+.sol-c:nth-child(1) .sol-abbr { color: var(–sig); }
 .sol-c:nth-child(2) .sol-abbr { color: #4a9eff; }
-.sol-c:nth-child(3) .sol-abbr { color: var(--amber); }
+.sol-c:nth-child(3) .sol-abbr { color: var(–amber); }
 
 .sol-c h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--tx-dark);
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(–tx-dark);
 }
-.sol-c p { font-size: 0.92rem; line-height: 1.7; color: var(--tx-dark-dim); }
+.sol-c p { font-size: 0.92rem; line-height: 1.7; color: var(–tx-dark-dim); }
 
+/* ═══════════════════════════════════════════
+TRIGGER (DARK)
+═══════════════════════════════════════════ */
 .trigger {
-  background: var(--surface); text-align: center;
-  position: relative; overflow: hidden;
-  border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr);
+background: var(–surface); text-align: center;
+position: relative; overflow: hidden;
+border-top: 1px solid var(–bdr); border-bottom: 1px solid var(–bdr);
 }
 .trigger::before {
-  content: ''; position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(255,90,60,0.04), transparent 55%);
-  border-radius: 50%;
+content: ‘’; position: absolute; top: 50%; left: 50%;
+transform: translate(-50%,-50%);
+width: 100%; max-width: 700px; height: 700px;
+background: radial-gradient(circle, rgba(255,90,60,0.04), transparent 55%);
+border-radius: 50%;
 }
 
 .tr-in { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
 
 .tr-q {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-  font-weight: 400; font-style: italic; line-height: 1.5;
-  color: var(--tx); margin: 2.5rem 0; position: relative;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+font-weight: 400; font-style: italic; line-height: 1.5;
+color: var(–tx); margin: 2.5rem 0; position: relative;
 }
 .tr-q::before, .tr-q::after {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 4rem; color: var(--tx-faint); opacity: 0.3; position: absolute;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 4rem; color: var(–tx-faint); opacity: 0.3; position: absolute;
 }
-.tr-q::before { content: '\201C'; top: -1.5rem; left: -1rem; }
-.tr-q::after { content: '\201D'; bottom: -2.5rem; right: -1rem; }
-.tr-q em { font-style: normal; color: var(--warn); }
+.tr-q::before { content: ‘\201C’; top: -1.5rem; left: -1rem; }
+.tr-q::after { content: ‘\201D’; bottom: -2.5rem; right: -1rem; }
+.tr-q em { font-style: normal; color: var(–warn); }
 
-.tr-b { font-size: 1rem; line-height: 1.7; color: var(--tx-dim); max-width: 560px; margin: 0 auto 2.5rem; }
+.tr-b { font-size: 1rem; line-height: 1.7; color: var(–tx-dim); max-width: 560px; margin: 0 auto 2.5rem; }
 
-.pricing { background: var(--cream); color: var(--tx-dark); }
+/* ═══════════════════════════════════════════
+PRICING (CREAM/LIGHT)
+═══════════════════════════════════════════ */
+.pricing { background: var(–cream); color: var(–tx-dark); }
 .pr-hd { text-align: center; margin-bottom: 3rem; }
 
 .pr-g {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem; max-width: 960px; margin: 0 auto;
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem; max-width: 960px; margin: 0 auto;
 }
 
 .pr-c {
-  background: var(--white); border: 1px solid var(--bdr-lt);
-  border-radius: 14px; padding: 2.5rem 2rem; transition: all 0.3s;
+background: var(–white); border: 1px solid var(–bdr-lt);
+border-radius: 14px; padding: 2.5rem 2rem; transition: all 0.3s;
 }
 .pr-c:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.06); }
-.pr-c.ft { border-color: var(--sig); box-shadow: 0 0 0 1px var(--sig); position: relative; }
+.pr-c.ft { border-color: var(–sig); box-shadow: 0 0 0 1px var(–sig); position: relative; }
 .pr-c.ft::before {
-  content: 'Recommended'; position: absolute; top: -11px; left: 50%;
-  transform: translateX(-50%);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; background: var(--sig); color: var(--void);
-  padding: 0.2rem 0.9rem; border-radius: 4px;
+content: ‘Recommended’; position: absolute; top: -11px; left: 50%;
+transform: translateX(-50%);
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
+text-transform: uppercase; background: var(–sig); color: var(–void);
+padding: 0.2rem 0.9rem; border-radius: 4px;
 }
 
 .pr-tier {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--tx-dark-dim); margin-bottom: 1.25rem;
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+text-transform: uppercase; color: var(–tx-dark-dim); margin-bottom: 1.25rem;
 }
 .pr-amt {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.75rem; font-weight: 700; color: var(--tx-dark);
-  line-height: 1; margin-bottom: 0.25rem;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 2.75rem; font-weight: 700; color: var(–tx-dark);
+line-height: 1; margin-bottom: 0.25rem;
 }
-.pr-amt span { font-family: 'Karla', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--tx-dark-dim); }
+.pr-amt span { font-family: ‘Karla’, sans-serif; font-size: 0.95rem; font-weight: 400; color: var(–tx-dark-dim); }
 
-.pr-desc { font-size: 0.85rem; color: var(--tx-dark-dim); margin-bottom: 1.5rem; line-height: 1.5; }
+.pr-desc { font-size: 0.85rem; color: var(–tx-dark-dim); margin-bottom: 1.5rem; line-height: 1.5; }
 
 .pr-ft { list-style: none; margin-bottom: 2rem; }
 .pr-ft li {
-  font-size: 0.88rem; color: var(--tx-dark-dim);
-  padding: 0.5rem 0; border-bottom: 1px solid var(--bdr-lt);
-  display: flex; gap: 0.5rem; align-items: baseline;
+font-size: 0.88rem; color: var(–tx-dark-dim);
+padding: 0.5rem 0; border-bottom: 1px solid var(–bdr-lt);
+display: flex; gap: 0.5rem; align-items: baseline;
 }
-.pr-ft li::before { content: '\203A'; color: var(--sig); font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.pr-ft li::before { content: ‘\203A’; color: var(–sig); font-family: ‘IBM Plex Mono’, monospace; font-weight: 600; }
 
 .pr-btn {
-  width: 100%; padding: 0.85rem; border-radius: 8px;
-  border: 1px solid var(--bdr-lt); background: transparent;
-  color: var(--tx-dark); font-family: 'Karla', sans-serif;
-  font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
+width: 100%; padding: 0.85rem; border-radius: 8px;
+border: 1px solid var(–bdr-lt); background: transparent;
+color: var(–tx-dark); font-family: ‘Karla’, sans-serif;
+font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
 }
 .pr-btn:hover { border-color: rgba(0,0,0,0.2); background: rgba(0,0,0,0.03); }
-.pr-c.ft .pr-btn { background: var(--sig); color: var(--void); border-color: var(--sig); }
-.pr-c.ft .pr-btn:hover { box-shadow: 0 8px 30px var(--sig-glow); }
+.pr-c.ft .pr-btn { background: var(–sig); color: var(–void); border-color: var(–sig); }
+.pr-c.ft .pr-btn:hover { box-shadow: 0 8px 30px var(–sig-glow); }
 
-.pr-ent { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--tx-dark-dim); }
-.pr-ent a { color: var(--sig); text-decoration: none; font-weight: 600; }
+.pr-ent { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(–tx-dark-dim); }
+.pr-ent a { color: var(–sig); text-decoration: none; font-weight: 600; }
 
-.moat { background: var(--void); }
+/* ═══════════════════════════════════════════
+MOAT (DARK)
+═══════════════════════════════════════════ */
+.moat { background: var(–void); }
 
 .moat-g { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
 
 .moat-c {
-  background: var(--surface); border: 1px solid var(--bdr);
-  border-radius: 12px; padding: 2rem; transition: all 0.4s;
+background: var(–surface); border: 1px solid var(–bdr);
+border-radius: 12px; padding: 2rem; transition: all 0.4s;
 }
-.moat-c:hover { border-color: var(--bdr-sig); transform: translateY(-3px); }
+.moat-c:hover { border-color: var(–bdr-sig); transform: translateY(-3px); }
 
 .moat-c h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--tx);
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: var(–tx);
 }
-.moat-c p { font-size: 0.9rem; line-height: 1.65; color: var(--tx-dim); }
+.moat-c p { font-size: 0.9rem; line-height: 1.65; color: var(–tx-dim); }
 
-.pattern { background: var(--cream-2); color: var(--tx-dark); text-align: center; }
+/* ═══════════════════════════════════════════
+PATTERN (CREAM/LIGHT)
+═══════════════════════════════════════════ */
+.pattern { background: var(–cream-2); color: var(–tx-dark); text-align: center; }
 .pt-in { max-width: 680px; margin: 0 auto; }
 
 .pt-list { text-align: left; margin: 3rem auto; }
 .pt-row {
-  display: flex; align-items: baseline;
-  padding: 1.1rem 0; border-bottom: 1px solid var(--bdr-lt); transition: all 0.3s;
+display: flex; align-items: baseline;
+padding: 1.1rem 0; border-bottom: 1px solid var(–bdr-lt); transition: all 0.3s;
 }
 .pt-row:hover { padding-left: 8px; }
 
-.pt-era { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--tx-dark-dim); min-width: 160px; flex-shrink: 0; }
-.pt-arr { color: var(--tx-dark-dim); margin: 0 1.25rem; font-family: 'IBM Plex Mono', monospace; }
-.pt-res { font-size: 0.95rem; color: var(--tx-dark); }
+.pt-era { font-family: ‘IBM Plex Mono’, monospace; font-size: 0.82rem; color: var(–tx-dark-dim); min-width: 160px; flex-shrink: 0; }
+.pt-arr { color: var(–tx-dark-dim); margin: 0 1.25rem; font-family: ‘IBM Plex Mono’, monospace; }
+.pt-res { font-size: 0.95rem; color: var(–tx-dark); }
 
-.pt-row.now { border-bottom: 2px solid var(--sig); background: rgba(0,212,170,0.08); border-radius: 4px; padding: 1.1rem 0.75rem; }
+.pt-row.now { border-bottom: 2px solid var(–sig); background: rgba(0,212,170,0.08); border-radius: 4px; padding: 1.1rem 0.75rem; }
 .pt-row.now .pt-era, .pt-row.now .pt-arr, .pt-row.now .pt-res { color: #0a9e7e; }
 .pt-row.now .pt-res { font-weight: 700; }
 
 .pt-end {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 700; color: var(--tx-dark);
-  margin-top: 2.5rem; line-height: 1.35;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.5rem; font-weight: 700; color: var(–tx-dark);
+margin-top: 2.5rem; line-height: 1.35;
 }
-.pt-end em { color: var(--sig); font-style: normal; }
+.pt-end em { color: var(–sig); font-style: normal; }
 
+/* ═══════════════════════════════════════════
+FINAL CTA (DARK)
+═══════════════════════════════════════════ */
 .cta-end {
-  background: var(--void); padding: 8rem 0;
-  text-align: center; position: relative;
+background: var(–void); padding: 8rem 0;
+text-align: center; position: relative; overflow: hidden;
 }
 .cta-end::before {
-  content: ''; position: absolute; bottom: 0; left: 50%;
-  transform: translateX(-50%); width: 600px; height: 400px;
-  background: radial-gradient(ellipse, rgba(0,212,170,0.05), transparent 65%);
+content: ‘’; position: absolute; bottom: 0; left: 50%;
+transform: translateX(-50%); width: 100%; max-width: 600px; height: 400px;
+background: radial-gradient(ellipse, rgba(0,212,170,0.05), transparent 65%);
 }
 
 .cta-end-in { position: relative; z-index: 1; }
 .cta-end .stitle { text-align: center; max-width: 600px; margin: 0 auto 1rem; }
-.cta-end .sdesc { text-align: center; max-width: 500px; margin: 0 auto 2.5rem; color: var(--tx-dim); }
+.cta-end .sdesc { text-align: center; max-width: 500px; margin: 0 auto 2.5rem; color: var(–tx-dim); }
 
 .em-row { display: flex; gap: 0.75rem; max-width: 460px; margin: 0 auto 1rem; }
 .em-in {
-  flex: 1; padding: 0.9rem 1.25rem;
-  border: 1px solid var(--bdr); border-radius: 8px;
-  background: var(--surface); color: var(--tx);
-  font-family: 'Karla', sans-serif; font-size: 0.95rem;
-  outline: none; transition: border-color 0.3s;
+flex: 1; padding: 0.9rem 1.25rem;
+border: 1px solid var(–bdr); border-radius: 8px;
+background: var(–surface); color: var(–tx);
+font-family: ‘Karla’, sans-serif; font-size: 0.95rem;
+outline: none; transition: border-color 0.3s;
 }
-.em-in::placeholder { color: var(--tx-faint); }
-.em-in:focus { border-color: var(--sig); box-shadow: 0 0 20px rgba(0,212,170,0.1); }
+.em-in::placeholder { color: var(–tx-faint); }
+.em-in:focus { border-color: var(–sig); box-shadow: 0 0 20px rgba(0,212,170,0.1); }
 
 .em-btn {
-  padding: 0.9rem 1.75rem; border: none; border-radius: 8px;
-  background: var(--sig); color: var(--void);
-  font-family: 'Karla', sans-serif; font-weight: 600; font-size: 0.95rem;
-  cursor: pointer; transition: all 0.3s; white-space: nowrap;
+padding: 0.9rem 1.75rem; border: none; border-radius: 8px;
+background: var(–sig); color: var(–void);
+font-family: ‘Karla’, sans-serif; font-weight: 600; font-size: 0.95rem;
+cursor: pointer; transition: all 0.3s; white-space: nowrap;
 }
-.em-btn:hover { box-shadow: 0 8px 30px var(--sig-glow); }
+.em-btn:hover { box-shadow: 0 8px 30px var(–sig-glow); }
 
-.fine { font-size: 0.78rem; color: var(--tx-faint); }
+.fine { font-size: 0.78rem; color: var(–tx-faint); }
 
+/* ═══════════════════════════════════════════
+FOOTER
+═══════════════════════════════════════════ */
 footer {
-  background: var(--surface); border-top: 1px solid var(--bdr);
-  padding: 2.5rem 0; text-align: center;
+background: var(–surface); border-top: 1px solid var(–bdr);
+padding: 2.5rem 0; text-align: center;
 }
-.ft-brand { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: var(--tx-dim); margin-bottom: 0.4rem; }
-.ft-brand b { color: var(--sig); font-weight: 600; }
-.ft-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--tx-faint); margin-bottom: 1.5rem; }
+.ft-brand { font-family: ‘IBM Plex Mono’, monospace; font-size: 1rem; color: var(–tx-dim); margin-bottom: 0.4rem; }
+.ft-brand b { color: var(–sig); font-weight: 600; }
+.ft-tag { font-family: ‘Cormorant Garamond’, serif; font-style: italic; font-size: 0.9rem; color: var(–tx-faint); margin-bottom: 1.5rem; }
 .ft-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-bottom: 1.5rem; }
-.ft-links a { font-size: 0.8rem; color: var(--tx-faint); text-decoration: none; transition: color 0.3s; }
-.ft-links a:hover { color: var(--tx); }
+.ft-links a { font-size: 0.8rem; color: var(–tx-faint); text-decoration: none; transition: color 0.3s; }
+.ft-links a:hover { color: var(–tx); }
 .ft-copy { font-size: 0.72rem; color: rgba(255,255,255,0.15); }
 
+/* ═══════════════════════════════════════════
+ANIMATIONS
+═══════════════════════════════════════════ */
 @keyframes fi { from{opacity:0} to{opacity:1} }
 @keyframes fsu { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
+/* ═══════════════════════════════════════════
+RESPONSIVE
+═══════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .hero-g { grid-template-columns: 1fr; gap: 2rem; }
-  .hero-r { min-height: 300px; }
-  .score-wrap { width: 300px; height: 300px; }
-  .sci-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .tl-g { grid-template-columns: 1fr 1fr; }
-  .sol-g, .pr-g { grid-template-columns: 1fr; }
-  .moat-g { grid-template-columns: 1fr; }
-  .stats-row { flex-direction: column; gap: 1.5rem; align-items: center; }
-  .hero-btns { flex-direction: column; }
-  .btn-s, .btn-g { width: 100%; text-align: center; display: block; }
-  .em-row { flex-direction: column; }
-  .nav-a { display: none; }
-  .fl { display: none; }
-  .pt-row { flex-direction: column; gap: 0.25rem; }
-  .pt-era { min-width: auto; }
+.hero-g { grid-template-columns: 1fr; gap: 2rem; }
+.hero-r { min-height: 300px; }
+.score-wrap { width: 300px; height: 300px; }
+.sci-grid { grid-template-columns: 1fr; gap: 3rem; }
+.tl-g { grid-template-columns: 1fr 1fr; }
+.sol-g, .pr-g { grid-template-columns: 1fr; }
+.moat-g { grid-template-columns: 1fr; }
+.stats-row { flex-direction: column; gap: 1.5rem; align-items: center; }
+.hero-btns { flex-direction: column; }
+.btn-s, .btn-g { width: 100%; text-align: center; display: block; }
+.em-row { flex-direction: column; }
+.nav-a { display: none; }
+.fl { display: none; }
+.pt-row { flex-direction: column; gap: 0.25rem; }
+.pt-era { min-width: auto; }
 }
 @media (max-width: 600px) {
-  .tl-g { grid-template-columns: 1fr; }
+.tl-g { grid-template-columns: 1fr; }
 }
 </style>
 
 </head>
 <body>
+
+<!-- NAV -->
 
 <nav id="nav">
   <div class="brand">Thin<b>Qual</b></div>
@@ -605,6 +661,8 @@ footer {
   </div>
 </nav>
 
+<!-- ════════ HERO (DARK) ════════ -->
+
 <section class="hero">
   <canvas id="neuro"></canvas>
   <div class="wrap">
@@ -614,7 +672,7 @@ footer {
         <h1>The AI you rely on is quietly <span class="erode">eroding your brain</span></h1>
         <p class="hero-p">ThinQual measures which cognitive functions you're delegating to AI, tracks the erosion in real time, and trains the exact neural pathways weakening. While you keep working.</p>
         <div class="hero-btns">
-          <button class="btn-s">Get early access &#8594;</button>
+          <button class="btn-s">Get early access →</button>
           <a href="#" class="btn-g">Read the whitepaper</a>
         </div>
       </div>
@@ -635,18 +693,20 @@ footer {
             <g class="sc-g">
               <text x="190" y="170" class="sc-lbl">THINQUAL SCORE</text>
               <text x="190" y="215" class="sc-num" id="sn">0</text>
-              <text x="190" y="260" class="sc-dlt">&#9660; 12 pts / 90 days</text>
+              <text x="190" y="260" class="sc-dlt">▼ 12 pts / 90 days</text>
             </g>
           </svg>
-          <div class="fl fl-1">Deep reasoning <b class="r">&#8595; 34%</b></div>
-          <div class="fl fl-2">Creative synthesis <b class="r">&#8595; 28%</b></div>
-          <div class="fl fl-3">Attention span <b class="g">&#8595; 19%</b></div>
-          <div class="fl fl-4">Error detection <b class="r">&#8595; 41%</b></div>
+          <div class="fl fl-1">Deep reasoning <b class="r">↓ 34%</b></div>
+          <div class="fl fl-2">Creative synthesis <b class="r">↓ 28%</b></div>
+          <div class="fl fl-3">Attention span <b class="g">↓ 19%</b></div>
+          <div class="fl fl-4">Error detection <b class="r">↓ 41%</b></div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ════════ STATS BAR ════════ -->
 
 <div class="stats" id="statsbar">
   <div class="stats-row">
@@ -656,17 +716,19 @@ footer {
   </div>
 </div>
 
+<!-- ════════ SCIENCE (LIGHT) ════════ -->
+
 <section class="science" id="science">
   <div class="wrap">
     <div class="sci-grid">
       <div class="sci-txt rv">
         <div class="marker mk-d">The GPS precedent</div>
         <h2 class="stitle" style="color:var(--tx-dark)">We have seen this before.<br>One function. Measurable damage.</h2>
-        <p>In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced <strong>measurable shrinkage of the posterior hippocampus</strong> &#8212; the brain region for spatial memory.</p>
+        <p>In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced <strong>measurable shrinkage of the posterior hippocampus</strong> — the brain region for spatial memory.</p>
         <p>The technology worked perfectly. The brain adapted by <strong>discarding what it no longer needed.</strong></p>
-        <p>GPS offloaded <strong>one</strong> cognitive function. AI offloads <strong>dozens</strong> &#8212; simultaneously. Writing, analysis, reasoning, decision-making. The entire upper cortex.</p>
+        <p>GPS offloaded <strong>one</strong> cognitive function. AI offloads <strong>dozens</strong> — simultaneously. Writing, analysis, reasoning, decision-making. The entire upper cortex.</p>
         <div class="callout">
-          <p>The erosion is invisible because the tool causing it is always there to compensate. You discover the damage only when the AI is unavailable &#8212; and by then it's already significant.</p>
+          <p>The erosion is invisible because the tool causing it is always there to compensate. You discover the damage only when the AI is unavailable — and by then it's already significant.</p>
         </div>
       </div>
       <div class="meters rv" id="mtr-box">
@@ -681,6 +743,8 @@ footer {
   </div>
 </section>
 
+<!-- ════════ TIMELINE (DARK) ════════ -->
+
 <section class="timeline">
   <div class="wrap">
     <div class="rv">
@@ -689,13 +753,15 @@ footer {
       <p class="sdesc" style="color:var(--tx-dim)">The sequence is structurally inevitable. The only variable is whether you are measuring when it arrives.</p>
     </div>
     <div class="tl-g">
-      <div class="tl-c rv"><div class="tl-y">2026 &#8211; 2027</div><div class="tl-t">Silent accumulation</div><p class="tl-d">80%+ of professional tasks involve AI. No metrics exist for cognitive dependency. Workers feel productive. Brains quietly weaken.</p><div class="tl-ph">01</div></div>
-      <div class="tl-c rv"><div class="tl-y">2027 &#8211; 2028</div><div class="tl-t">First signals</div><p class="tl-d">Peer-reviewed studies document measurable cognitive changes. Tech industry dismisses findings as alarmist.</p><div class="tl-ph">02</div></div>
-      <div class="tl-c rv"><div class="tl-y">2028 &#8211; 2029</div><div class="tl-t">The reckoning</div><p class="tl-d">Workers cannot function during AI outages. Insurers price &#34;cognitive dependency risk.&#34; Demand becomes urgent.</p><div class="tl-ph">03</div></div>
-      <div class="tl-c rv"><div class="tl-y">2029 &#8211; 2030</div><div class="tl-t">Regulation arrives</div><p class="tl-d">EU proposes cognitive impact assessments. Employers require fitness scores. ThinQual holds 3&#8211;4 years of data.</p><div class="tl-ph">04</div></div>
+      <div class="tl-c rv"><div class="tl-y">2026 – 2027</div><div class="tl-t">Silent accumulation</div><p class="tl-d">80%+ of professional tasks involve AI. No metrics exist for cognitive dependency. Workers feel productive. Brains quietly weaken.</p><div class="tl-ph">01</div></div>
+      <div class="tl-c rv"><div class="tl-y">2027 – 2028</div><div class="tl-t">First signals</div><p class="tl-d">Peer-reviewed studies document measurable cognitive changes. Tech industry dismisses findings as alarmist.</p><div class="tl-ph">02</div></div>
+      <div class="tl-c rv"><div class="tl-y">2028 – 2029</div><div class="tl-t">The reckoning</div><p class="tl-d">Workers cannot function during AI outages. Insurers price "cognitive dependency risk." Demand becomes urgent.</p><div class="tl-ph">03</div></div>
+      <div class="tl-c rv"><div class="tl-y">2029 – 2030</div><div class="tl-t">Regulation arrives</div><p class="tl-d">EU proposes cognitive impact assessments. Employers require fitness scores. ThinQual holds 3–4 years of data.</p><div class="tl-ph">04</div></div>
     </div>
   </div>
 </section>
+
+<!-- ════════ SOLUTION (LIGHT) ════════ -->
 
 <section class="solution" id="solution">
   <div class="wrap">
@@ -705,23 +771,27 @@ footer {
       <p class="sdesc" style="color:var(--tx-dark-dim)">ThinQual doesn't fight AI. It trains your brain to remain capable despite AI. You keep working exactly as before.</p>
     </div>
     <div class="sol-g">
-      <div class="sol-c rv"><div class="sol-ico a">&#9678;</div><span class="sol-abbr">CDM &#183; COGNITIVE DELEGATION MAP</span><h3>Delegation Monitoring</h3><p>Observes your AI interactions. Maps which cognitive functions you're delegating. Outputs a continuously updated ThinQual Score &#8212; your personal cognitive fitness index.</p></div>
-      <div class="sol-c rv"><div class="sol-ico b">&#9673;</div><span class="sol-abbr">PNT &#183; PRECISION NEURAL TRAINING</span><h3>Precision Training</h3><p>Daily exercises targeting the exact functions being eroded. Not generic brain games. Calibrated to your delegation patterns. Difficulty adapts in real time.</p></div>
-      <div class="sol-c rv"><div class="sol-ico c">&#9672;</div><span class="sol-abbr">IRD &#183; INSTITUTIONAL RISK DASHBOARD</span><h3>Risk Dashboard</h3><p>For organizations: anonymized cognitive fitness across teams. Identifies roles where erosion poses operational risk. Intervention before crisis.</p></div>
+      <div class="sol-c rv"><div class="sol-ico a">◎</div><span class="sol-abbr">CDM · COGNITIVE DELEGATION MAP</span><h3>Delegation Monitoring</h3><p>Observes your AI interactions. Maps which cognitive functions you're delegating. Outputs a continuously updated ThinQual Score — your personal cognitive fitness index.</p></div>
+      <div class="sol-c rv"><div class="sol-ico b">◉</div><span class="sol-abbr">PNT · PRECISION NEURAL TRAINING</span><h3>Precision Training</h3><p>Daily exercises targeting the exact functions being eroded. Not generic brain games. Calibrated to your delegation patterns. Difficulty adapts in real time.</p></div>
+      <div class="sol-c rv"><div class="sol-ico c">◈</div><span class="sol-abbr">IRD · INSTITUTIONAL RISK DASHBOARD</span><h3>Risk Dashboard</h3><p>For organizations: anonymized cognitive fitness across teams. Identifies roles where erosion poses operational risk. Intervention before crisis.</p></div>
     </div>
   </div>
 </section>
+
+<!-- ════════ TRIGGER (DARK) ════════ -->
 
 <section class="trigger">
   <div class="wrap">
     <div class="tr-in rv">
       <div class="marker mk-w" style="justify-content:center">The trigger event</div>
-      <div class="tr-q">Within 18 months, a major AI outage will reveal that employees <em>cannot perform their core functions</em> without AI. Not because systems are down &#8212; but because they have <em>lost the cognitive ability</em> to do the work.</div>
+      <div class="tr-q">Within 18 months, a major AI outage will reveal that employees <em>cannot perform their core functions</em> without AI. Not because systems are down — but because they have <em>lost the cognitive ability</em> to do the work.</div>
       <p class="tr-b">ThinQual doesn't need to create demand. The demand will be created by an inevitable failure. We need to exist, be refined, and hold data when that moment arrives.</p>
-      <button class="btn-s">Be ready before the market wakes up &#8594;</button>
+      <button class="btn-s">Be ready before the market wakes up →</button>
     </div>
   </div>
 </section>
+
+<!-- ════════ PRICING (LIGHT) ════════ -->
 
 <section class="pricing" id="pricing">
   <div class="wrap">
@@ -730,25 +800,29 @@ footer {
       <h2 class="stitle" style="text-align:center;color:var(--tx-dark)">Start measuring. Stay sharp.</h2>
     </div>
     <div class="pr-g">
-      <div class="pr-c rv"><div class="pr-tier">Free</div><div class="pr-amt">&#8364;0</div><p class="pr-desc">See your baseline cognitive fitness.</p><ul class="pr-ft"><li>Basic ThinQual Score</li><li>Weekly score updates</li><li>Delegation overview</li></ul><button class="pr-btn">Get started</button></div>
-      <div class="pr-c ft rv"><div class="pr-tier">Personal</div><div class="pr-amt">&#8364;7.99 <span>/mo</span></div><p class="pr-desc">Daily monitoring and precision training.</p><ul class="pr-ft"><li>Daily cognitive monitoring</li><li>Precision Neural Training</li><li>Trend analysis &amp; forecasting</li><li>Erosion alerts</li></ul><button class="pr-btn">Start free trial</button></div>
-      <div class="pr-c rv"><div class="pr-tier">Pro</div><div class="pr-amt">&#8364;14.99 <span>/mo</span></div><p class="pr-desc">Full analytics and cognitive forecasting.</p><ul class="pr-ft"><li>Everything in Personal</li><li>Detailed analytics dashboard</li><li>Exportable reports</li><li>Multi-device tracking</li></ul><button class="pr-btn">Start free trial</button></div>
+      <div class="pr-c rv"><div class="pr-tier">Free</div><div class="pr-amt">€0</div><p class="pr-desc">See your baseline cognitive fitness.</p><ul class="pr-ft"><li>Basic ThinQual Score</li><li>Weekly score updates</li><li>Delegation overview</li></ul><button class="pr-btn">Get started</button></div>
+      <div class="pr-c ft rv"><div class="pr-tier">Personal</div><div class="pr-amt">€7.99 <span>/mo</span></div><p class="pr-desc">Daily monitoring and precision training.</p><ul class="pr-ft"><li>Daily cognitive monitoring</li><li>Precision Neural Training</li><li>Trend analysis & forecasting</li><li>Erosion alerts</li></ul><button class="pr-btn">Start free trial</button></div>
+      <div class="pr-c rv"><div class="pr-tier">Pro</div><div class="pr-amt">€14.99 <span>/mo</span></div><p class="pr-desc">Full analytics and cognitive forecasting.</p><ul class="pr-ft"><li>Everything in Personal</li><li>Detailed analytics dashboard</li><li>Exportable reports</li><li>Multi-device tracking</li></ul><button class="pr-btn">Start free trial</button></div>
     </div>
-    <p class="pr-ent">Enterprise: from &#8364;19.99/seat/month &#183; <a href="#">Contact us &#8594;</a></p>
+    <p class="pr-ent">Enterprise: from €19.99/seat/month · <a href="#">Contact us →</a></p>
   </div>
 </section>
+
+<!-- ════════ MOAT (DARK) ════════ -->
 
 <section class="moat">
   <div class="wrap">
     <div class="rv"><div class="marker mk-s">Defensibility</div><h2 class="stitle">The moat deepens every single day</h2></div>
     <div class="moat-g">
-      <div class="moat-c rv"><h3>Data advantage</h3><p>Every day generates cognitive delegation data no competitor can replicate without equivalent time in market. By 2028 &#8212; the world's largest human-AI cognitive interaction dataset.</p></div>
-      <div class="moat-c rv"><h3>Behavioral lock-in</h3><p>Users build a longitudinal cognitive profile that grows more valuable over time. Switching means losing years of personal cognitive history &#8212; like losing your medical records.</p></div>
-      <div class="moat-c rv"><h3>Standard-setting</h3><p>First mover defines the methodology. ThinQual Score becomes the cognitive FICO &#8212; the number institutions require and individuals track.</p></div>
+      <div class="moat-c rv"><h3>Data advantage</h3><p>Every day generates cognitive delegation data no competitor can replicate without equivalent time in market. By 2028 — the world's largest human-AI cognitive interaction dataset.</p></div>
+      <div class="moat-c rv"><h3>Behavioral lock-in</h3><p>Users build a longitudinal cognitive profile that grows more valuable over time. Switching means losing years of personal cognitive history — like losing your medical records.</p></div>
+      <div class="moat-c rv"><h3>Standard-setting</h3><p>First mover defines the methodology. ThinQual Score becomes the cognitive FICO — the number institutions require and individuals track.</p></div>
       <div class="moat-c rv"><h3>Network effects</h3><p>More users, more accurate erosion models across demographics, professions, and AI patterns. Winner-take-most dynamics in data-driven health.</p></div>
     </div>
   </div>
 </section>
+
+<!-- ════════ PATTERN (LIGHT) ════════ -->
 
 <section class="pattern">
   <div class="wrap">
@@ -756,22 +830,24 @@ footer {
       <div class="marker mk-d" style="justify-content:center">The structural inevitability</div>
       <h2 class="stitle" style="text-align:center;color:var(--tx-dark)">Every major technology created<br>a safety industry</h2>
       <div class="pt-list">
-        <div class="pt-row"><span class="pt-era">Industrial Revolution</span><span class="pt-arr">&#8594;</span><span class="pt-res">Occupational safety</span></div>
-        <div class="pt-row"><span class="pt-era">Automobile</span><span class="pt-arr">&#8594;</span><span class="pt-res">Auto insurance</span></div>
-        <div class="pt-row"><span class="pt-era">Internet</span><span class="pt-arr">&#8594;</span><span class="pt-res">Cybersecurity</span></div>
-        <div class="pt-row"><span class="pt-era">Social media</span><span class="pt-arr">&#8594;</span><span class="pt-res">Digital wellbeing</span></div>
-        <div class="pt-row now"><span class="pt-era">Artificial Intelligence</span><span class="pt-arr">&#8594;</span><span class="pt-res">Cognitive fitness</span></div>
+        <div class="pt-row"><span class="pt-era">Industrial Revolution</span><span class="pt-arr">→</span><span class="pt-res">Occupational safety</span></div>
+        <div class="pt-row"><span class="pt-era">Automobile</span><span class="pt-arr">→</span><span class="pt-res">Auto insurance</span></div>
+        <div class="pt-row"><span class="pt-era">Internet</span><span class="pt-arr">→</span><span class="pt-res">Cybersecurity</span></div>
+        <div class="pt-row"><span class="pt-era">Social media</span><span class="pt-arr">→</span><span class="pt-res">Digital wellbeing</span></div>
+        <div class="pt-row now"><span class="pt-era">Artificial Intelligence</span><span class="pt-arr">→</span><span class="pt-res">Cognitive fitness</span></div>
       </div>
       <p class="pt-end">The question is not whether this market will exist.<br>The question is <em>who will define it.</em></p>
     </div>
   </div>
 </section>
 
+<!-- ════════ FINAL CTA (DARK) ════════ -->
+
 <section class="cta-end">
   <div class="wrap">
     <div class="cta-end-in rv">
       <h2 class="stitle">The category will be<br>created exactly once.</h2>
-      <p class="sdesc" style="text-align:center;max-width:500px;margin:0 auto 2.5rem;color:var(--tx-dim)">Get early access and protect your most valuable asset &#8212; the ability to think independently.</p>
+      <p class="sdesc" style="text-align:center;max-width:500px;margin:0 auto 2.5rem;color:var(--tx-dim)">Get early access and protect your most valuable asset — the ability to think independently.</p>
       <div class="em-row">
         <input type="email" class="em-in" placeholder="your@email.com">
         <button class="em-btn">Get early access</button>
@@ -781,14 +857,19 @@ footer {
   </div>
 </section>
 
+<!-- FOOTER -->
+
 <footer>
   <div class="ft-brand">Thin<b>Qual</b></div>
   <p class="ft-tag">Cognitive Fitness for the AI Age</p>
   <ul class="ft-links"><li><a href="#">Whitepaper</a></li><li><a href="#">Science</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Contact</a></li></ul>
-  <p class="ft-copy">&#169; 2026 ThinQual. All rights reserved.</p>
+  <p class="ft-copy">© 2026 ThinQual. All rights reserved.</p>
 </footer>
 
 <script>
+/* ═══════════════════════════════════════════
+   NEURAL CANVAS
+   ═══════════════════════════════════════════ */
 (function(){
   const c=document.getElementById('neuro'),x=c.getContext('2d');
   let N=[],M={x:-1e3,y:-1e3};
@@ -824,11 +905,17 @@ footer {
   draw();
 })();
 
+/* ═══════════════════════════════════════════
+   SCROLL REVEALS
+   ═══════════════════════════════════════════ */
 const ro=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
 },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.rv').forEach(e=>ro.observe(e));
 
+/* ═══════════════════════════════════════════
+   METER FILLS
+   ═══════════════════════════════════════════ */
 const mo=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){
     e.target.querySelectorAll('.mtr-bar').forEach(b=>{b.style.width=b.dataset.w+'%'});
@@ -837,6 +924,9 @@ const mo=new IntersectionObserver(es=>{
 },{threshold:.25});
 document.querySelectorAll('#mtr-box').forEach(e=>mo.observe(e));
 
+/* ═══════════════════════════════════════════
+   COUNTER ANIMATION
+   ═══════════════════════════════════════════ */
 const co=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){
     e.target.querySelectorAll('.ctr').forEach(c=>{
@@ -849,15 +939,24 @@ const co=new IntersectionObserver(es=>{
 },{threshold:.5});
 document.querySelectorAll('#statsbar').forEach(e=>co.observe(e));
 
+/* ═══════════════════════════════════════════
+   SCORE COUNTER
+   ═══════════════════════════════════════════ */
 setTimeout(()=>{
   const el=document.getElementById('sn');let v=0;
   const i=setInterval(()=>{v+=2;if(v>=73){v=73;clearInterval(i)}el.textContent=v},30);
 },1600);
 
+/* ═══════════════════════════════════════════
+   NAV SCROLL
+   ═══════════════════════════════════════════ */
 addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('solid',scrollY>50);
 });
 
+/* ═══════════════════════════════════════════
+   SMOOTH SCROLL
+   ═══════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{e.preventDefault();
     const t=document.querySelector(a.getAttribute('href'));
