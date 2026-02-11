@@ -4,1845 +4,729 @@
   <meta charset="UTF-8">
   <title>ThinQual — Cognitive Fitness for the AI Age</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#05070C">
-
-  <!-- Fonts: Inter (UI) + DM Serif Display (hero) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <meta name="theme-color" content="#06090F">
   <style>
     :root {
-      --bg: #05070C;
-      --bg-soft: #0B1018;
-      --bg-softer: #111824;
-      --panel: #121927;
-      --panel-soft: #181F30;
-      --paper: #F6F3ED;
-
-      --tx: #E3E7F4;
-      --tx-soft: #9AA3C2;
-      --tx-faint: #4D5673;
-      --tx-dark: #161925;
-      --tx-dark-soft: #5A6173;
-
-      --sig: #00E3B2;
-      --sig-soft: rgba(0,227,178,0.08);
-      --sig-glow: rgba(0,227,178,0.32);
-      --amber: #F2A545;
-      --warn: #FF5A3C;
-
-      --border: rgba(255,255,255,0.06);
-      --border-soft: rgba(255,255,255,0.03);
-
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 24px 80px rgba(0,0,0,0.45);
+      --bg: #02040A;
+      --bg-elevated: #060910;
+      --bg-soft: #0C111C;
+      --tx: #E5ECFF;
+      --tx-soft: #A9B4D8;
+      --tx-faint: #6B7698;
+      --accent: #3BFF9C;
+      --accent-soft: rgba(59,255,156,0.16);
+      --danger: #FF5C5C;
+      --danger-soft: rgba(255,92,92,0.14);
+      --border-subtle: rgba(163,177,217,0.16);
+      --card-radius: 24px;
+      --shadow-soft: 0 32px 80px rgba(0,0,0,0.65);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #101827 0, #05070C 55%, #020308 100%);
+      background: radial-gradient(circle at top, #050B18 0, #02040A 55%, #000000 100%);
       color: var(--tx);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      padding: 0 16px 48px;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.12;
-      mix-blend-mode: screen;
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(0,227,178,0.12), transparent 55%),
-        radial-gradient(circle at 80% 0%, rgba(242,165,69,0.10), transparent 55%);
-      z-index: -1;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .wrap {
-      max-width: 1120px;
+    .page {
+      max-width: 440px;
       margin: 0 auto;
-      padding: 0 1.75rem;
     }
 
     /* NAV */
 
-    nav {
-      position: fixed;
-      inset-inline: 0;
+    .nav {
+      position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(28px);
-      background: linear-gradient(to bottom, rgba(5,7,12,0.96), rgba(5,7,12,0.80) 50%, transparent);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .nav-inner {
+      z-index: 20;
+      padding: 12px 0 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.85rem 1.75rem;
-      max-width: 1120px;
-      margin: 0 auto;
+      backdrop-filter: blur(22px);
+      background: linear-gradient(to bottom, rgba(2,4,10,0.96), rgba(2,4,10,0.75), transparent);
     }
 
-    .brand {
-      display: flex;
+    .nav-left {
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.9rem;
+      gap: 8px;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.04em;
+      font-size: 0.8rem;
       text-transform: uppercase;
       color: var(--tx-soft);
     }
 
-    .brand-mark {
-      width: 18px;
-      height: 18px;
+    .nav-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      border: 1px solid rgba(0,227,178,0.8);
-      box-shadow: 0 0 18px var(--sig-glow);
-      position: relative;
-      overflow: hidden;
-    }
-    .brand-mark::before {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(0,227,178,0.5), transparent 55%),
-        radial-gradient(circle at 70% 80%, rgba(242,165,69,0.45), transparent 60%);
+      background: radial-gradient(circle at 30% 30%, var(--accent) 0, #0AFFD4 40%, transparent 70%);
+      box-shadow: 0 0 18px rgba(59,255,156,0.9);
     }
 
-    .brand span {
-      color: var(--tx);
-    }
-    .brand b {
-      color: var(--sig);
-      font-weight: 600;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      font-size: 0.86rem;
-    }
-
-    .nav-links a {
-      color: var(--tx-soft);
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-    .nav-links a:hover {
-      color: var(--tx);
+    .nav-left span:last-child {
+      font-weight: 700;
+      color: var(--accent);
     }
 
     .nav-cta {
-      padding: 0.55rem 1.35rem;
+      padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(0,227,178,0.45);
-      background: rgba(0,227,178,0.08);
-      color: var(--sig);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      border: 1px solid rgba(59,255,156,0.25);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .nav-cta:hover {
-      background: var(--sig);
-      color: #020308;
-      box-shadow: 0 0 32px var(--sig-glow);
-      transform: translateY(-1px);
+      color: #03110A;
+      background: radial-gradient(circle at 30% 0, #5CFFC0 0, #32D98E 45%, #09A85C 100%);
+      box-shadow: 0 0 18px rgba(59,255,156,0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
-    @media (max-width: 768px) {
-      .nav-links a { display: none; }
+    .nav-cta-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #03110A;
     }
 
     /* HERO */
 
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 5.5rem 0 4rem;
-      position: relative;
+      padding-top: 12px;
+      padding-bottom: 24px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 4rem;
-      align-items: center;
-    }
-
-    @media (max-width: 960px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 3rem;
-      }
-      .hero {
-        padding-top: 5rem;
-      }
-    }
-
-    .badge-top {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.72rem;
+    .eyebrow {
+      font-size: 0.76rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--sig);
-      margin-bottom: 1.5rem;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--sig);
-      box-shadow: 0 0 14px var(--sig-glow);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%,100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(0.75); opacity: 0.45; }
+      color: var(--tx-faint);
+      margin-bottom: 10px;
     }
 
     .hero-title {
-      font-family: "DM Serif Display", "Times New Roman", serif;
-      font-size: clamp(2.6rem, 4.5vw, 3.7rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.1rem;
-    }
-
-    /* PARANDUS: enam pole tumedat gradienti, puhas hele tekst */
-    .hero-title span {
-      color: var(--tx);
-      -webkit-text-fill-color: var(--tx);
-      background: none;
-    }
-
-    .hero-lead {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--tx-soft);
-      max-width: 480px;
-      margin-bottom: 2.1rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-    }
-
-    .btn-primary {
-      border: none;
-      border-radius: 999px;
-      padding: 0.95rem 1.9rem;
-      font-size: 0.98rem;
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
       font-weight: 600;
-      background: var(--sig);
-      color: #020308;
-      cursor: pointer;
-      box-shadow: 0 16px 50px var(--sig-glow);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      margin-bottom: 12px;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 22px 60px var(--sig-glow);
-      background: #00d4a7;
+    .hero-title span {
+      color: var(--accent);
     }
 
-    .btn-ghost {
+    .hero-sub {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: var(--tx-soft);
+      max-width: 30rem;
+      margin-bottom: 18px;
+    }
+
+    /* EMAIL / CTA */
+
+    .hero-cta {
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 420px) {
+      .email-form {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .email-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: rgba(10,16,28,0.92);
       border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 0.9rem 1.7rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      background: rgba(9,13,22,0.9);
+      border: 1px solid rgba(163,177,217,0.35);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.55);
+      padding: 3px 14px;
+      max-width: 100%;
+    }
+
+    .email-input {
+      border: none;
+      background: transparent;
       color: var(--tx);
-      cursor: pointer;
-      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 10px 4px;
+      width: 100%;
+      outline: none;
+    }
+
+    .email-input::placeholder {
+      color: var(--tx-faint);
+    }
+
+    .hero-cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
-    }
-    .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.16);
-      background: rgba(18,25,39,0.9);
-      color: var(--tx);
+      justify-content: center;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      padding: 11px 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #03110A;
+      background: radial-gradient(circle at 30% 0, #5CFFC0 0, #32D98E 45%, #09A85C 100%);
+      box-shadow: 0 18px 40px rgba(27, 255, 158, 0.7);
+      white-space: nowrap;
     }
 
-    .hero-note {
-      margin-top: 1.4rem;
+    .hero-cta-note {
+      font-size: 0.78rem;
+      color: var(--tx-faint);
+      margin-top: 4px;
+    }
+
+    /* QUICK TAGLINE */
+
+    .hero-tagline {
       font-size: 0.8rem;
       color: var(--tx-faint);
-      max-width: 380px;
+      margin-top: 18px;
     }
 
-    @media (max-width: 640px) {
-      .hero {
-        padding-top: 4.5rem;
+    .hero-tagline strong {
+      color: var(--tx-soft);
+      font-weight: 600;
+    }
+
+    /* STATS */
+
+    .stats {
+      margin-top: 28px;
+      margin-bottom: 26px;
+      padding: 16px 18px 14px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, rgba(9,19,38,0.95) 0, rgba(4,8,18,0.98) 40%, #02040A 100%);
+      border: 1px solid rgba(129,148,210,0.35);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.75);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--tx-faint);
+    }
+
+    .stat-value {
+      font-size: 1.12rem;
+      font-weight: 600;
+    }
+
+    .stat-value.accent {
+      color: var(--accent);
+    }
+
+    .stat-value.warn {
+      color: #FFC164;
+    }
+
+    .stat-value.muted {
+      color: var(--tx-soft);
+    }
+
+    .stat-sub {
+      font-size: 0.72rem;
+      color: var(--tx-soft);
+    }
+
+    /* SECTION: GPS precedent */
+
+    .section {
+      padding-top: 20px;
+      padding-bottom: 16px;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tx-faint);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-weight: 600;
+      font-size: 1.36rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .section-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--tx-soft);
+    }
+
+    .section-body strong {
+      color: var(--tx);
+      font-weight: 600;
+    }
+
+    /* ERODING SECTION */
+
+    .section-dark {
+      margin-top: 30px;
+      padding: 22px 18px 20px;
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, #101A2E 0, #050913 45%, #020309 100%);
+      border: 1px solid rgba(111,129,188,0.35);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+    }
+
+    .section-dark .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .section-dark .section-body {
+      margin-bottom: 16px;
+    }
+
+    .section-dark-cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 420px) {
+      .section-dark-cta-row {
+        flex-direction: row;
       }
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .btn-primary,
-      .btn-ghost {
-        justify-content: center;
-        width: 100%;
-      }
+    }
+
+    .ghost-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(163,177,217,0.5);
+      background: rgba(5,9,20,0.85);
+      font-size: 0.86rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--tx-soft);
+      cursor: pointer;
+    }
+
+    .hero-qualifier {
+      font-size: 0.78rem;
+      color: var(--tx-faint);
     }
 
     /* SCORE CARD */
 
-    .hero-score {
-      display: flex;
-      justify-content: center;
-    }
-
     .score-card {
-      position: relative;
-      background: radial-gradient(circle at 10% 0, rgba(0,227,178,0.18), transparent 55%),
-                  radial-gradient(circle at 90% 100%, rgba(242,165,69,0.08), transparent 60%),
-                  var(--panel);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 26px;
+      padding: 18px 18px 18px;
+      border-radius: var(--card-radius);
+      background: radial-gradient(circle at top, #0E172B 0, #060913 40%, #020309 100%);
+      border: 1px solid rgba(124,142,203,0.45);
       box-shadow: var(--shadow-soft);
-      padding: 1.6rem 1.4rem 1.7rem;
-      max-width: 360px;
-      width: 100%;
-      overflow: hidden;
     }
 
-    .score-label {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.68rem;
+    .score-eyebrow {
+      font-size: 0.72rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--tx-faint);
-      text-align: center;
-      margin-bottom: 0.9rem;
+      margin-bottom: 8px;
     }
 
-    .score-shell {
-      width: 100%;
-      max-width: 260px;
-      margin: 0 auto 1.1rem;
-    }
-
-    .score-svg {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .sc-num {
-      font-family: "DM Serif Display", serif;
-      font-size: 54px;
-      fill: var(--sig);
-    }
-    .sc-label {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      fill: var(--tx-faint);
-      text-transform: uppercase;
-    }
-    .sc-delta {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      fill: var(--warn);
-    }
-
-    .score-footnote {
+    .score-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      font-size: 0.8rem;
-      color: var(--tx-soft);
-      margin-bottom: 0.45rem;
+      margin-bottom: 6px;
     }
 
-    .score-footnote span {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.74rem;
-      color: var(--tx-faint);
-    }
-
-    .delegation-list {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      margin-top: 0.9rem;
-      padding-top: 0.9rem;
-      display: grid;
-      grid-template-columns: 1.1fr 1.1fr;
-      gap: 0.55rem 0.75rem;
-      font-size: 0.76rem;
-      color: var(--tx-soft);
-    }
-
-    .delegation-item b {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--tx);
-    }
-
-    .badge-risk {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.66rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(255,90,60,0.08);
-      border: 1px solid rgba(255,90,60,0.5);
-      color: var(--warn);
-    }
-
-    .badge-risk-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--warn);
-    }
-
-    /* PARANDUS: alumine rida, et Session ei oleks liiga servas */
-    .score-bottom {
-      margin-top: 0.9rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 6px;
+    .score-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
     }
 
     .score-meta {
       font-size: 0.75rem;
       color: var(--tx-faint);
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    /* STATS BAR */
-
-    .stats {
-      border-block: 1px solid var(--border);
-      background: linear-gradient(to bottom, #080B13, #05070C);
-      padding: 2.4rem 0;
-      margin-top: 1.5rem;
-    }
-
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.7rem;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .stat {
-      min-width: 140px;
-    }
-
-    .stat-number {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 1.85rem;
-      font-weight: 600;
-      color: var(--tx);
-    }
-
-    .stat-number b {
-      color: var(--sig);
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .stat-label {
-      margin-top: 0.35rem;
-      font-size: 0.82rem;
-      color: var(--tx-soft);
-    }
-
-    /* GENERIC SECTIONS */
-
-    section {
-      padding: 5.5rem 0;
-    }
-
-    .section-tag {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--tx-faint);
-      margin-bottom: 1.4rem;
-    }
-
-    .section-tag--sig { color: var(--sig); }
-    .section-tag--warn { color: var(--warn); }
-
-    .section-title {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(2rem, 3vw, 2.7rem);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-      color: var(--tx);
-    }
-
-    .section-desc {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--tx-soft);
-      max-width: 620px;
-    }
-
-    /* SCIENCE / RISK MAP */
-
-    .section-science {
-      background: var(--paper);
-      color: var(--tx-dark);
-    }
-    .section-science .section-title {
-      color: var(--tx-dark);
-    }
-    .section-science .section-desc {
-      color: var(--tx-dark-soft);
-    }
-
-    .science-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 4.2rem;
-      align-items: start;
-    }
-
-    @media (max-width: 960px) {
-      .science-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 3rem;
-      }
-    }
-
-    .science-text p {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--tx-dark-soft);
-      margin-bottom: 1.3rem;
-    }
-
-    .science-text strong {
-      color: var(--tx-dark);
-      font-weight: 600;
-    }
-
-    .callout {
-      border-left: 3px solid var(--warn);
-      padding: 1.15rem 1.4rem;
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      background: rgba(255,90,60,0.06);
-      margin-top: 1.8rem;
-      font-family: "DM Serif Display", serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--tx-dark);
-    }
-
-    .risk-map {
-      background: #FFFFFF;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(0,0,0,0.06);
-      padding: 1.4rem 1.5rem 1.5rem;
-      box-shadow: 0 18px 50px rgba(15,18,25,0.12);
-    }
-
-    .risk-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.65rem;
-    }
-
-    .risk-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--tx-dark);
-    }
-
-    .risk-pct {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .risk-pct--high { color: var(--warn); }
-    .risk-pct--med { color: var(--amber); }
-    .risk-pct--low { color: #00B27F; }
-
-    .risk-bar-track {
-      height: 5px;
-      border-radius: 999px;
-      background: #E9E5DA;
-      overflow: hidden;
-      margin-bottom: 0.3rem;
-    }
-
-    .risk-bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      width: 0;
-      transform-origin: left;
-      transition: width 1.6s cubic-bezier(0.16,1,0.3,1);
-    }
-
-    .risk-bar-fill--high {
-      background: linear-gradient(90deg, var(--warn), #FF8E70);
-    }
-    .risk-bar-fill--med {
-      background: linear-gradient(90deg, var(--amber), #FFD38C);
-    }
-    .risk-bar-fill--low {
-      background: linear-gradient(90deg, #00C18A, #47F1C4);
-    }
-
-    .risk-sub {
-      font-size: 0.78rem;
-      color: var(--tx-dark-soft);
-      margin-bottom: 0.7rem;
-    }
-
-    /* TIMELINE */
-
-    .timeline {
-      background: radial-gradient(circle at top, rgba(0,227,178,0.14), transparent 55%),
-                  var(--bg);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .timeline-rail {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.5rem;
-      margin-top: 3.2rem;
-    }
-
-    @media (max-width: 960px) {
-      .timeline-rail {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-    @media (max-width: 640px) {
-      .timeline-rail {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .timeline-card {
-      background: rgba(10,15,26,0.96);
-      border-radius: var(--radius-md);
-      padding: 1.7rem 1.5rem 1.6rem;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    }
-
-    .timeline-card::before {
-      content: "";
-      position: absolute;
-      inset-inline: 0;
-      top: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--sig), var(--amber), var(--warn));
-      opacity: 0.9;
-    }
-
-    .timeline-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0,227,178,0.45);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
-    }
-
-    .timeline-year {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--sig);
-      margin-bottom: 0.6rem;
-    }
-
-    .timeline-title {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.25rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .timeline-copy {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: var(--tx-soft);
-    }
-
-    .timeline-ghost {
-      position: absolute;
-      right: 1rem;
-      bottom: 0.5rem;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 2.4rem;
-      font-weight: 600;
-      opacity: 0.04;
-      pointer-events: none;
-    }
-
-    /* SOLUTION CARDS */
-
-    .solution {
-      background: var(--paper);
-      color: var(--tx-dark);
-    }
-
-    .solution .section-title {
-      color: var(--tx-dark);
-    }
-
-    .solution .section-desc {
-      color: var(--tx-dark-soft);
-    }
-
-    .solution-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.6rem;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 960px) {
-      .solution-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .solution-card {
-      background: #FFFFFF;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(0,0,0,0.06);
-      padding: 1.9rem 1.7rem 1.8rem;
-      box-shadow: 0 18px 55px rgba(0,0,0,0.06);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .solution-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0,0,0,0.14);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.10);
-    }
-
-    .solution-tag {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.55rem;
-      color: var(--tx-dark-soft);
-    }
-
-    .solution-title {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.35rem;
-      margin-bottom: 0.6rem;
-      color: var(--tx-dark);
-    }
-
-    .solution-copy {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--tx-dark-soft);
-    }
-
-    .solution-pill {
-      position: absolute;
-      right: 1.6rem;
-      top: 1.6rem;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.12);
+    .score-main {
+      margin-top: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95rem;
-      background: radial-gradient(circle at 30% 20%, rgba(0,227,178,0.16), transparent 60%);
-      color: var(--tx-dark);
     }
 
-    /* TRIGGER */
-
-    .trigger {
-      background: radial-gradient(circle at center, rgba(255,90,60,0.18), transparent 60%),
-                  var(--bg-soft);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    .score-svg-wrap {
+      width: 210px;
+      height: 210px;
     }
 
-    .trigger-quote {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
-      font-style: italic;
-      line-height: 1.6;
-      color: var(--tx);
-      max-width: 760px;
-      margin: 2.4rem auto 1.7rem;
-      position: relative;
-    }
-
-    .trigger-quote em {
-      color: var(--warn);
-      font-style: normal;
-    }
-
-    .trigger-body {
-      font-size: 0.98rem;
-      line-height: 1.7;
-      color: var(--tx-soft);
-      max-width: 550px;
-      margin: 0 auto 2.4rem;
-    }
-
-    /* PRICING */
-
-    .pricing {
-      background: var(--paper);
-      color: var(--tx-dark);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.6rem;
-      margin-top: 2.8rem;
-    }
-
-    @media (max-width: 960px) {
-      .pricing-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .price-card {
-      background: #FFFFFF;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(0,0,0,0.08);
-      padding: 1.9rem 1.7rem 1.8rem;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.04);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    }
-
-    .price-card--featured {
-      border-color: var(--sig);
-      box-shadow: 0 0 0 1px var(--sig), 0 20px 60px rgba(0,0,0,0.08);
-      position: relative;
-    }
-
-    .price-badge {
-      position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 0.22rem 0.8rem;
-      border-radius: 999px;
-      background: var(--sig);
-      color: #020308;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .price-tier {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--tx-dark-soft);
-      margin-bottom: 0.7rem;
-    }
-
-    .price-amt {
-      font-family: "DM Serif Display", serif;
-      font-size: 2.6rem;
-      color: var(--tx-dark);
-      margin-bottom: 0.15rem;
-    }
-
-    .price-amt span {
-      font-family: "Inter", sans-serif;
-      font-size: 0.95rem;
-      color: var(--tx-dark-soft);
-    }
-
-    .price-desc {
-      font-size: 0.88rem;
-      color: var(--tx-dark-soft);
-      margin-bottom: 1.3rem;
-    }
-
-    .price-list {
-      list-style: none;
-      font-size: 0.86rem;
-      color: var(--tx-dark-soft);
-      margin-bottom: 1.4rem;
-    }
-
-    .price-list li {
-      padding: 0.45rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      display: flex;
-      gap: 0.55rem;
-    }
-
-    .price-list li::before {
-      content: "›";
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--sig);
-      font-size: 0.9rem;
-    }
-
-    .price-btn {
-      width: 100%;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.10);
-      padding: 0.85rem 1rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      background: transparent;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .price-card--featured .price-btn {
-      background: var(--sig);
-      border-color: var(--sig);
-      color: #020308;
-    }
-
-    .price-card--featured .price-btn:hover {
-      box-shadow: 0 14px 40px var(--sig-glow);
-    }
-
-    .price-btn:hover {
-      background: rgba(0,0,0,0.02);
-      border-color: rgba(0,0,0,0.18);
-    }
-
-    .pricing-note {
-      margin-top: 1.9rem;
-      font-size: 0.9rem;
-      text-align: center;
-      color: var(--tx-dark-soft);
-    }
-
-    .pricing-note a {
-      color: var(--sig);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* MOAT */
-
-    .moat {
-      background: var(--bg);
-    }
-
-    .moat-grid {
+    .score-details {
+      margin-top: 18px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 960px) {
-      .moat-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .moat-card {
-      background: var(--panel-soft);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      padding: 1.7rem 1.6rem 1.6rem;
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    .moat-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(0,227,178,0.5);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.65);
-    }
-
-    .moat-card h3 {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .moat-card p {
-      font-size: 0.9rem;
-      line-height: 1.7;
+      gap: 10px 18px;
+      font-size: 0.8rem;
       color: var(--tx-soft);
     }
 
-    /* PATTERN */
-
-    .pattern {
-      background: #ECE8DF;
-      color: var(--tx-dark);
-      text-align: center;
-    }
-
-    .pattern-list {
-      max-width: 680px;
-      margin: 3rem auto 0;
-      text-align: left;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0,0,0,0.05);
-      overflow: hidden;
-      background: rgba(255,255,255,0.5);
-    }
-
-    .pattern-row {
-      display: flex;
-      align-items: baseline;
-      padding: 0.9rem 1.1rem;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      font-size: 0.9rem;
-    }
-
-    .pattern-era {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.78rem;
-      color: var(--tx-dark-soft);
-      min-width: 150px;
-    }
-
-    .pattern-arrow {
-      margin: 0 1rem;
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--tx-dark-soft);
-    }
-
-    .pattern-res {
-      color: var(--tx-dark);
-    }
-
-    .pattern-row--now {
-      background: rgba(0,227,178,0.10);
-      border-left: 3px solid var(--sig);
-    }
-
-    .pattern-end {
-      font-family: "DM Serif Display", serif;
-      font-size: 1.4rem;
-      margin-top: 2.2rem;
-      line-height: 1.4;
-    }
-
-    .pattern-end em {
-      color: var(--sig);
-      font-style: normal;
-    }
-
-    /* CTA END */
-
-    .cta-end {
-      background: var(--bg);
-      text-align: center;
-      padding: 6.5rem 0 5.5rem;
-      position: relative;
-    }
-
-    .cta-end .section-title {
-      max-width: 540px;
-      margin-inline: auto;
-      margin-bottom: 1rem;
-    }
-
-    .cta-end .section-desc {
-      max-width: 480px;
-      margin: 0 auto 2.2rem;
-    }
-
-    .cta-form {
-      display: flex;
-      gap: 0.75rem;
-      max-width: 420px;
-      margin: 0 auto 1rem;
-      flex-wrap: wrap;
-    }
-
-    .cta-input {
-      flex: 1 1 220px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(10,14,22,0.95);
-      color: var(--tx);
-      padding: 0.85rem 1rem;
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .cta-input::placeholder {
-      color: var(--tx-faint);
-    }
-
-    .cta-input:focus {
-      border-color: var(--sig);
-      box-shadow: 0 0 0 1px var(--sig), 0 0 26px rgba(0,227,178,0.22);
-      background: #050812;
-    }
-
-    .cta-button {
-      border-radius: 999px;
-      border: none;
-      padding: 0.9rem 1.7rem;
-      font-size: 0.9rem;
+    .score-details dt {
       font-weight: 600;
-      background: var(--sig);
-      color: #020308;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 14px 44px var(--sig-glow);
-      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      color: var(--tx);
+      margin-bottom: 2px;
     }
 
-    .cta-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 54px var(--sig-glow);
-      background: #00d4a7;
-    }
-
-    .cta-fine {
+    .score-details dd {
+      margin: 0;
       font-size: 0.78rem;
-      color: var(--tx-faint);
+      color: var(--tx-soft);
     }
 
-    @media (max-width: 640px) {
-      .cta-form {
-        flex-direction: column;
-      }
-      .cta-button {
-        width: 100%;
-      }
+    /* DELEGATION RISK PILL – LÜHEM */
+
+    .risk-pill-wrap {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .risk-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,92,92,0.7);
+      background: radial-gradient(circle at 20% 0, rgba(255,150,150,0.26) 0, rgba(40,8,8,0.96) 40%, rgba(14,3,3,0.98) 100%);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.9);
+      color: var(--danger);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .risk-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FF5C5C;
+      box-shadow: 0 0 16px rgba(255,92,92,0.9);
     }
 
     /* FOOTER */
 
-    footer {
-      background: #080C14;
-      border-top: 1px solid var(--border);
-      padding: 2.3rem 0 2.5rem;
-      text-align: center;
-      font-size: 0.8rem;
+    .footer {
+      margin-top: 38px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(72,86,132,0.55);
+      font-size: 0.78rem;
       color: var(--tx-faint);
     }
 
-    .ft-brand {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.95rem;
-      margin-bottom: 0.35rem;
-    }
-    .ft-brand b { color: var(--sig); }
-
-    .ft-tag {
-      font-family: "DM Serif Display", serif;
-      font-style: italic;
-      font-size: 0.88rem;
-      color: var(--tx-soft);
-      margin-bottom: 1.2rem;
+    .footer-brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
     }
 
-    .ft-links {
-      list-style: none;
+    .footer-brand span {
+      color: var(--accent);
+    }
+
+    .footer-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.6rem;
-      margin-bottom: 1.3rem;
-    }
-
-    .ft-links a {
-      color: var(--tx-faint);
-      text-decoration: none;
-      transition: color 0.2s ease;
+      gap: 14px;
+      margin: 10px 0 12px;
       font-size: 0.78rem;
     }
 
-    .ft-links a:hover {
-      color: var(--tx);
+    .footer-links a {
+      color: var(--tx-soft);
     }
 
-    /* REVEAL ANIMATIONS */
-
-    .rv {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
-    }
-
-    .rv.on {
-      opacity: 1;
-      transform: translateY(0);
+    .footer-copy {
+      font-size: 0.74rem;
+      color: var(--tx-faint);
     }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
-    <div class="nav-inner">
-      <div class="brand">
-        <span class="brand-mark"></span>
-        <span>Thin<b>Qual</b></span>
+  <div class="page">
+    <header class="nav" id="nav">
+      <div class="nav-left">
+        <div class="nav-dot"></div>
+        <span>Thin</span><span>Qual</span>
       </div>
-      <div class="nav-links">
-        <a href="#science">Science</a>
-        <a href="#solution">Solution</a>
-        <a href="#pricing">Pricing</a>
-        <button class="nav-cta">Early access</button>
-      </div>
-    </div>
-  </nav>
+      <button class="nav-cta">
+        Early access
+        <span class="nav-cta-dot"></span>
+      </button>
+    </header>
 
-  <!-- HERO -->
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <div class="hero-grid">
-          <div class="hero-left rv">
-            <div class="badge-top">
-              <span class="badge-dot"></span>
-              Monitoring cognitive delegation
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="eyebrow">Created exactly once.</div>
+        <h1 class="hero-title">
+          Protect the <span>ability to think independently</span>.
+        </h1>
+        <p class="hero-sub">
+          ThinQual gives you a live readout of which cognitive functions you're delegating to AI, how fast your own pathways are weakening, and how to keep them trained while you work.
+        </p>
+
+        <div class="hero-cta">
+          <form class="email-form">
+            <div class="email-input-wrap">
+              <input class="email-input" type="email" placeholder="your@email.com">
             </div>
-            <h1 class="hero-title">
-              The AI you rely on is quietly <span>eroding your brain</span>
-            </h1>
-            <p class="hero-lead">
-              ThinQual measures which cognitive functions you're delegating to AI, tracks the erosion in real time, and trains the exact neural pathways weakening. While you keep working.
-            </p>
-            <div class="hero-actions">
-              <button class="btn-primary">Get early access →</button>
-              <a href="#whitepaper" class="btn-ghost">
-                Read the whitepaper
-              </a>
-            </div>
-            <p class="hero-note">
-              Designed for knowledge workers, founders, and institutions who want to compound AI leverage without sacrificing their own cognition.
-            </p>
-          </div>
-
-          <div class="hero-score rv">
-            <aside class="score-card">
-              <div class="score-label">Cognitive fitness index</div>
-              <div class="score-shell">
-                <svg class="score-svg" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#00E3B2" />
-                      <stop offset="60%" stop-color="#F2A545" />
-                      <stop offset="100%" stop-color="#FF5A3C" />
-                    </linearGradient>
-                  </defs>
-
-                  <!-- background ring -->
-                  <circle cx="130" cy="130" r="96"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.08)"
-                          stroke-width="3" />
-
-                  <!-- score ring -->
-                  <circle id="scoreRing"
-                          cx="130" cy="130" r="96"
-                          fill="none"
-                          stroke="url(#ringGradient)"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-dasharray="603"
-                          stroke-dashoffset="603"
-                          transform="rotate(-90 130 130)" />
-
-                  <!-- inner guide -->
-                  <circle cx="130" cy="130" r="82"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.05)"
-                          stroke-width="1" />
-
-                  <!-- label -->
-                  <text x="50%" y="40%" text-anchor="middle"
-                        class="sc-label">
-                    THINQUAL SCORE
-                  </text>
-
-                  <!-- score value -->
-                  <text id="scoreValue"
-                        x="50%" y="51%"
-                        text-anchor="middle"
-                        dominant-baseline="middle"
-                        class="sc-num">
-                    0
-                  </text>
-
-                  <!-- delta -->
-                  <text x="50%" y="62%"
-                        text-anchor="middle"
-                        class="sc-delta">
-                    ▼ 12 pts / 90 days
-                  </text>
-                </svg>
-              </div>
-
-              <div class="score-footnote">
-                <span>Baseline: high-autonomy knowledge work</span>
-                <span>73 / 100</span>
-              </div>
-
-              <div class="delegation-list">
-                <div class="delegation-item">
-                  <b>Deep reasoning</b>
-                  34% capacity lost without AI
-                </div>
-                <div class="delegation-item">
-                  <b>Creative synthesis</b>
-                  28% offloaded to models
-                </div>
-                <div class="delegation-item">
-                  <b>Sustained attention</b>
-                  19% improvement when retrained
-                </div>
-                <div class="delegation-item">
-                  <b>Error detection</b>
-                  41% silently delegated
-                </div>
-              </div>
-
-              <div class="score-bottom">
-                <span class="badge-risk">
-                  <span class="badge-risk-dot"></span>
-                  Delegation risk rising
-                </span>
-                <span class="score-meta">Session 184 · v0.9</span>
-              </div>
-            </aside>
+            <button type="submit" class="hero-cta-btn">
+              Get early access
+            </button>
+          </form>
+          <div class="hero-cta-note">
+            No credit card. Free tier at launch.
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- STATS -->
-    <section class="stats">
-      <div class="wrap">
-        <div class="stats-row rv" id="statsRow">
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="3">0</span><b>B+</b></div>
-            <div class="stat-label">projected AI users by 2030</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="47">0</span><b>%</b></div>
-            <div class="stat-label">report reduced problem-solving</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="0">0</span></div>
-            <div class="stat-label">tools measuring cognitive delegation</div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <p class="hero-tagline">
+          Built for knowledge workers, founders, and institutions who want AI leverage without sacrificing their own <strong>cognitive fitness</strong>.
+        </p>
+      </section>
 
-    <!-- SCIENCE -->
-    <section class="section-science" id="science">
-      <div class="wrap">
-        <div class="science-grid">
-          <div class="science-text rv">
-            <div class="section-tag">The GPS precedent</div>
-            <h2 class="section-title">
-              We have seen this before. One function. Measurable damage.
-            </h2>
-            <p>
-              In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced
-              <strong>measurable shrinkage of the posterior hippocampus</strong> — the brain region for spatial memory.
-            </p>
-            <p>
-              The technology worked perfectly. The brain adapted by
-              <strong>discarding what it no longer needed.</strong>
-            </p>
-            <p>
-              GPS offloaded <strong>one</strong> cognitive function. AI offloads
-              <strong>dozens</strong> — simultaneously. Writing, analysis, reasoning, decision-making. The entire upper cortex.
-            </p>
-            <div class="callout">
-              The erosion is invisible because the tool causing it is always there to compensate. You discover the damage only when the AI is unavailable — and by then it's already significant.
-            </div>
-          </div>
+      <!-- STATS -->
+      <section class="stats" id="stats">
+        <article class="stat">
+          <div class="stat-label">By 2030</div>
+          <div class="stat-value accent" data-target="3.0">3.0B+</div>
+          <div class="stat-sub">Projected AI users</div>
+        </article>
+        <article class="stat">
+          <div class="stat-label">Today</div>
+          <div class="stat-value warn" data-target="47">47%</div>
+          <div class="stat-sub">Report reduced problem solving</div>
+        </article>
+        <article class="stat">
+          <div class="stat-label">Currently</div>
+          <div class="stat-value muted" data-target="0">0</div>
+          <div class="stat-sub">Tools measuring cognitive delegation</div>
+        </article>
+      </section>
 
-          <aside class="risk-map rv">
-            <div class="section-tag section-tag--warn" style="margin-bottom:1rem;">
-              Delegation risk map
-            </div>
+      <!-- GPS PRECEDENT -->
+      <section class="section">
+        <div class="section-eyebrow">The GPS precedent</div>
+        <h2 class="section-title">
+          We have seen this before.<br>One function. Measurable damage.
+        </h2>
+        <p class="section-body">
+          In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced <strong>measurable shrinkage</strong> of the posterior hippocampus – the brain region for spatial memory. The technology worked perfectly. The brain areas it replaced, quietly did not.
+        </p>
+      </section>
 
-            <div class="risk-row">
-              <div class="risk-name">Deep reasoning</div>
-              <div class="risk-pct risk-pct--high">87% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--high" data-width="87"></div>
-            </div>
-            <div class="risk-sub">Complex multi-step problem solving without AI.</div>
+      <!-- ERODING SECTION -->
+      <section class="section-dark">
+        <div class="section-eyebrow">Monitoring cognitive delegation</div>
+        <h2 class="section-title">
+          The AI you rely on is quietly eroding your brain.
+        </h2>
+        <p class="section-body">
+          ThinQual instruments which cognitive functions you're offloading to models, tracks the erosion in real time, and trains the exact neural pathways weakening. You keep the leverage of AI – without handing it your autonomy.
+        </p>
 
-            <div class="risk-row">
-              <div class="risk-name">Creative synthesis</div>
-              <div class="risk-pct risk-pct--high">74% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--high" data-width="74"></div>
-            </div>
-            <div class="risk-sub">Combining disparate ideas into novel solutions.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Sustained attention</div>
-              <div class="risk-pct risk-pct--med">61% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--med" data-width="61"></div>
-            </div>
-            <div class="risk-sub">Holding a single complex task in focus.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Error detection</div>
-              <div class="risk-pct risk-pct--med">53% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--med" data-width="53"></div>
-            </div>
-            <div class="risk-sub">Recognising when something is wrong in output.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Working memory</div>
-              <div class="risk-pct risk-pct--low">38% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--low" data-width="38"></div>
-            </div>
-            <div class="risk-sub">Holding multiple variables simultaneously.</div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section class="timeline">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--sig">What happens next</div>
-          <h2 class="section-title">The predictable timeline</h2>
-          <p class="section-desc">
-            The sequence is structurally inevitable. The only variable is whether you are measuring when it arrives.
-          </p>
-        </div>
-
-        <div class="timeline-rail">
-          <article class="timeline-card rv">
-            <div class="timeline-year">2026 – 2027</div>
-            <div class="timeline-title">Silent accumulation</div>
-            <p class="timeline-copy">
-              80%+ of professional tasks involve AI. No metrics exist for cognitive dependency. Workers feel productive. Brains quietly weaken.
-            </p>
-            <div class="timeline-ghost">01</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2027 – 2028</div>
-            <div class="timeline-title">First signals</div>
-            <p class="timeline-copy">
-              Peer-reviewed studies document measurable cognitive changes. Tech industry dismisses findings as alarmist.
-            </p>
-            <div class="timeline-ghost">02</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2028 – 2029</div>
-            <div class="timeline-title">The reckoning</div>
-            <p class="timeline-copy">
-              Workers cannot function during AI outages. Insurers price “cognitive dependency risk.” Demand becomes urgent.
-            </p>
-            <div class="timeline-ghost">03</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2029 – 2030</div>
-            <div class="timeline-title">Regulation arrives</div>
-            <p class="timeline-copy">
-              EU proposes cognitive impact assessments. Employers require fitness scores. ThinQual holds 3–4 years of data.
-            </p>
-            <div class="timeline-ghost">04</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOLUTION -->
-    <section class="solution" id="solution">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag">How ThinQual works</div>
-          <h2 class="section-title">Three layers of cognitive protection</h2>
-          <p class="section-desc">
-            ThinQual doesn't fight AI. It trains your brain to remain capable despite AI. You keep working exactly as before.
-          </p>
-        </div>
-
-        <div class="solution-grid">
-          <article class="solution-card rv">
-            <div class="solution-pill">CDM</div>
-            <div class="solution-tag">CDM · Cognitive Delegation Map</div>
-            <h3 class="solution-title">Delegation monitoring</h3>
-            <p class="solution-copy">
-              Observes your AI interactions. Maps which cognitive functions you're delegating. Outputs a continuously updated ThinQual Score — your personal cognitive fitness index.
-            </p>
-          </article>
-
-          <article class="solution-card rv">
-            <div class="solution-pill">PNT</div>
-            <div class="solution-tag">PNT · Precision Neural Training</div>
-            <h3 class="solution-title">Precision training</h3>
-            <p class="solution-copy">
-              Daily exercises targeting the exact functions being eroded. Not generic brain games. Calibrated to your delegation patterns. Difficulty adapts in real time.
-            </p>
-          </article>
-
-          <article class="solution-card rv">
-            <div class="solution-pill">IRD</div>
-            <div class="solution-tag">IRD · Institutional Risk Dashboard</div>
-            <h3 class="solution-title">Risk dashboard</h3>
-            <p class="solution-copy">
-              For organizations: anonymized cognitive fitness across teams. Identifies roles where erosion poses operational risk. Intervention before crisis.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRIGGER -->
-    <section class="trigger">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--warn" style="text-align:center;">The trigger event</div>
-          <div class="trigger-quote">
-            Within 18 months, a major AI outage will reveal that employees <em>cannot perform their core functions</em> without AI. Not because systems are down — but because they have <em>lost the cognitive ability</em> to do the work.
-          </div>
-          <p class="trigger-body">
-            ThinQual doesn't need to create demand. The demand will be created by an inevitable failure. We need to exist, be refined, and hold data when that moment arrives.
-          </p>
-          <button class="btn-primary">
-            Be ready before the market wakes up →
+        <div class="section-dark-cta-row">
+          <button class="hero-cta-btn" type="button">
+            Get early access
+          </button>
+          <button class="ghost-btn" type="button">
+            Read the whitepaper
           </button>
         </div>
-      </div>
-    </section>
 
-    <!-- PRICING -->
-    <section class="pricing" id="pricing">
-      <div class="wrap">
-        <div class="rv" style="text-align:center;">
-          <div class="section-tag">Pricing</div>
-          <h2 class="section-title" style="color:var(--tx-dark);">Start measuring. Stay sharp.</h2>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card rv">
-            <div class="price-tier">Free</div>
-            <div class="price-amt">€0</div>
-            <p class="price-desc">See your baseline cognitive fitness.</p>
-            <ul class="price-list">
-              <li>Basic ThinQual Score</li>
-              <li>Weekly score updates</li>
-              <li>Delegation overview</li>
-            </ul>
-            <button class="price-btn">Get started</button>
-          </article>
-
-          <article class="price-card price-card--featured rv">
-            <div class="price-badge">Recommended</div>
-            <div class="price-tier">Personal</div>
-            <div class="price-amt">€7.99 <span>/mo</span></div>
-            <p class="price-desc">Daily monitoring and precision training.</p>
-            <ul class="price-list">
-              <li>Daily cognitive monitoring</li>
-              <li>Precision Neural Training</li>
-              <li>Trend analysis &amp; forecasting</li>
-              <li>Erosion alerts</li>
-            </ul>
-            <button class="price-btn">Start free trial</button>
-          </article>
-
-          <article class="price-card rv">
-            <div class="price-tier">Pro</div>
-            <div class="price-amt">€14.99 <span>/mo</span></div>
-            <p class="price-desc">Full analytics and cognitive forecasting.</p>
-            <ul class="price-list">
-              <li>Everything in Personal</li>
-              <li>Detailed analytics dashboard</li>
-              <li>Exportable reports</li>
-              <li>Multi-device tracking</li>
-            </ul>
-            <button class="price-btn">Start free trial</button>
-          </article>
-        </div>
-
-        <p class="pricing-note">
-          Enterprise: from €19.99/seat/month · <a href="#contact">Contact us →</a>
+        <p class="hero-qualifier">
+          Designed for high-autonomy knowledge work: researchers, operators, founders, and institutions running critical decisions through AI.
         </p>
-      </div>
-    </section>
+      </section>
 
-    <!-- MOAT -->
-    <section class="moat">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--sig">Defensibility</div>
-          <h2 class="section-title">The moat deepens every single day</h2>
+      <!-- SCORE CARD -->
+      <section class="score-card">
+        <div class="score-eyebrow">Cognitive fitness index</div>
+        <div class="score-header">
+          <div class="score-title">ThinQual score</div>
+          <div class="score-meta">Session 184 · v0.9</div>
         </div>
 
-        <div class="moat-grid">
-          <article class="moat-card rv">
-            <h3>Data advantage</h3>
-            <p>
-              Every day generates cognitive delegation data no competitor can replicate without equivalent time in market. By 2028 — the world's largest human–AI cognitive interaction dataset.
-            </p>
-          </article>
+        <div class="score-main">
+          <div class="score-svg-wrap">
+            <svg viewBox="0 0 380 260">
+              <!-- Outer arc track -->
+              <path d="M40 210 A150 150 0 0 1 340 210"
+                    fill="none"
+                    stroke="rgba(45,65,120,0.7)"
+                    stroke-width="16"
+                    stroke-linecap="round"/>
+              <!-- Outer arc value -->
+              <path id="score-arc"
+                    d="M40 210 A150 150 0 0 1 340 210"
+                    fill="none"
+                    stroke="url(#gradScore)"
+                    stroke-width="16"
+                    stroke-linecap="round"
+                    stroke-dasharray="471"
+                    stroke-dashoffset="471"/>
+              <defs>
+                <linearGradient id="gradScore" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FFB35C"/>
+                  <stop offset="40%" stop-color="#6BFFB2"/>
+                  <stop offset="100%" stop-color="#14FFA0"/>
+                </linearGradient>
+              </defs>
 
-          <article class="moat-card rv">
-            <h3>Behavioral lock-in</h3>
-            <p>
-              Users build a longitudinal cognitive profile that grows more valuable over time. Switching means losing years of personal cognitive history — like losing your medical records.
-            </p>
-          </article>
-
-          <article class="moat-card rv">
-            <h3>Standard-setting</h3>
-            <p>
-              First mover defines the methodology. ThinQual Score becomes the cognitive FICO — the number institutions require and individuals track.
-            </p>
-          </article>
-
-          <article class="moat-card rv">
-            <h3>Network effects</h3>
-            <p>
-              More users, more accurate erosion models across demographics, professions, and AI patterns. Winner-take-most dynamics in data-driven health.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PATTERN -->
-    <section class="pattern">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag">The structural inevitability</div>
-          <h2 class="section-title" style="color:var(--tx-dark);text-align:center;">
-            Every major technology created<br> a safety industry
-          </h2>
-
-          <div class="pattern-list">
-            <div class="pattern-row">
-              <span class="pattern-era">Industrial Revolution</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Occupational safety</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Automobile</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Auto insurance</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Internet</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Cybersecurity</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Social media</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Digital wellbeing</span>
-            </div>
-            <div class="pattern-row pattern-row--now">
-              <span class="pattern-era">Artificial Intelligence</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Cognitive fitness</span>
-            </div>
+              <text x="190" y="150" text-anchor="middle"
+                    style="font-size:10px; letter-spacing:0.32em; text-transform:uppercase; fill:#8E9AC4;">
+                THINQUAL SCORE
+              </text>
+              <text id="sn"
+                    x="190" y="195" text-anchor="middle"
+                    style="font-size:64px; font-weight:600; fill:#3BFF9C;">
+                0
+              </text>
+              <text x="190" y="224" text-anchor="middle"
+                    style="font-size:14px; fill:#FF8A7A;">
+                ▼ 12 pts / 90 days
+              </text>
+            </svg>
           </div>
-
-          <p class="pattern-end">
-            The question is not whether this market will exist.<br>
-            The question is <em>who will define it.</em>
-          </p>
         </div>
-      </div>
-    </section>
 
-    <!-- CTA END -->
-    <section class="cta-end">
-      <div class="wrap">
-        <div class="rv">
-          <h2 class="section-title">
-            The category will be created exactly once.
-          </h2>
-          <p class="section-desc">
-            Get early access and protect your most valuable asset — the ability to think independently.
-          </p>
+        <dl class="score-details">
+          <div>
+            <dt>Deep reasoning</dt>
+            <dd>34% capacity lost without AI on complex workstreams.</dd>
+          </div>
+          <div>
+            <dt>Creative synthesis</dt>
+            <dd>28% of ideation silently offloaded to models.</dd>
+          </div>
+          <div>
+            <dt>Sustained attention</dt>
+            <dd>19% improvement when retrained as a deliberate practice.</dd>
+          </div>
+          <div>
+            <dt>Error detection</dt>
+            <dd>41% of quality control delegated without awareness.</dd>
+          </div>
+        </dl>
 
-          <form class="cta-form" onsubmit="event.preventDefault();">
-            <input class="cta-input" type="email" placeholder="your@email.com">
-            <button class="cta-button" type="submit">Get early access</button>
-          </form>
-          <p class="cta-fine">No credit card. Free tier at launch.</p>
+        <div class="risk-pill-wrap">
+          <div class="risk-pill">
+            <span class="risk-dot"></span>
+            <span>Delegation risk rising</span>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <!-- FOOTER -->
-  <footer id="contact">
-    <div class="wrap" style="text-align:center;">
-      <div class="ft-brand">Thin<b>Qual</b></div>
-      <div class="ft-tag">Cognitive Fitness for the AI Age</div>
-      <ul class="ft-links">
-        <li><a id="whitepaper" href="#">Whitepaper</a></li>
-        <li><a href="#science">Science</a></li>
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="mailto:hello@thinqual.com">Contact</a></li>
-      </ul>
-      <div class="ft-copy">© 2026 ThinQual. All rights reserved.</div>
-    </div>
-  </footer>
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-brand">
+          Thin<span>Qual</span> — Cognitive Fitness for the AI Age
+        </div>
+        <div class="footer-links">
+          <a href="#whitepaper">Whitepaper</a>
+          <a href="#science">Science</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-copy">
+          © 2026 ThinQual. All rights reserved.
+        </div>
+      </footer>
+    </main>
+  </div>
 
   <script>
-    // Reveal on scroll
-    const revealObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("on");
-          revealObserver.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll(".rv").forEach(el => revealObserver.observe(el));
-
-    // Animate score ring + number
-    const scoreRing = document.getElementById("scoreRing");
-    const scoreValue = document.getElementById("scoreValue");
+    // Animate ThinQual score arc + number
+    const scoreArc = document.getElementById('score-arc');
+    const scoreNumber = document.getElementById('sn');
     const targetScore = 73;
-    const ringLength = 603;
+    const arcLength = 471; // stroke-dasharray
 
     function animateScore() {
-      const duration = 1800;
+      let current = 0;
+      const duration = 1400;
       const start = performance.now();
 
       function frame(now) {
-        const t = Math.min(1, (now - start) / duration);
-        const eased = 1 - Math.pow(1 - t, 3);
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
         const val = Math.round(targetScore * eased);
-        scoreValue.textContent = val;
-        const offset = ringLength * (1 - eased * targetScore / 100);
-        scoreRing.style.strokeDashoffset = offset.toString();
+        const offset = arcLength * (1 - val / 100);
+        scoreNumber.textContent = val;
+        scoreArc.style.strokeDashoffset = String(offset);
         if (t < 1) requestAnimationFrame(frame);
       }
 
       requestAnimationFrame(frame);
     }
 
-    const heroScoreObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          animateScore();
-          heroScoreObserver.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0.5 });
-
-    heroScoreObserver.observe(document.querySelector(".score-card"));
-
-    // Stats counters
-    const statsRow = document.getElementById("statsRow");
-    const statsObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const counters = entry.target.querySelectorAll(".stat-counter");
-        counters.forEach(counter => {
-          const target = Number(counter.dataset.target || 0);
-          if (!target) {
-            counter.textContent = "0";
-            return;
-          }
-          const duration = 1600;
-          const start = performance.now();
-
-          function step(now) {
-            const t = Math.min(1, (now - start) / duration);
-            const eased = 1 - Math.pow(1 - t, 3);
-            let current = target * eased;
-            current = target >= 10 ? Math.round(current) : Math.round(current * 10) / 10;
-            counter.textContent = target >= 10 ? current : current.toFixed(1);
-            if (t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        });
-        statsObserver.unobserve(entry.target);
-      }
-    }, { threshold: 0.5 });
-
-    statsObserver.observe(statsRow);
-
-    // Risk bar animation
-    const riskMap = document.querySelector(".risk-map");
-    const riskObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.querySelectorAll(".risk-bar-fill").forEach(el => {
-          const w = el.getAttribute("data-width") || "0";
-          el.style.width = w + "%";
-        });
-        riskObserver.unobserve(entry.target);
-      }
-    }, { threshold: 0.35 });
-
-    riskObserver.observe(riskMap);
+    // Trigger on load
+    window.addEventListener('load', animateScore);
   </script>
 </body>
 </html>
