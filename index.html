@@ -1,12 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ThinQual — Cognitive Fitness for the AI Age</title>
+  <title>ThinQual &#8212; Cognitive Fitness for the AI Age</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#05070C">
 
   <!-- Fonts: Inter (UI) + DM Serif Display (hero) -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -176,6 +178,23 @@
       align-items: center;
       padding: 5.5rem 0 4rem;
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Particle canvas behind hero */
+    #heroCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-grid {
@@ -229,7 +248,6 @@
       margin-bottom: 1.1rem;
     }
 
-    /* PARANDUS: enam pole tumedat gradienti, puhas hele tekst */
     .hero-title span {
       color: var(--tx);
       -webkit-text-fill-color: var(--tx);
@@ -410,34 +428,36 @@
       align-items: center;
       gap: 0.35rem;
       font-family: "IBM Plex Mono", monospace;
-      font-size: 0.66rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      padding: 0.25rem 0.7rem;
+      letter-spacing: 0.12em;
+      padding: 0.22rem 0.6rem;
       border-radius: 999px;
       background: rgba(255,90,60,0.08);
       border: 1px solid rgba(255,90,60,0.5);
       color: var(--warn);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .badge-risk-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 999px;
       background: var(--warn);
     }
 
-    /* PARANDUS: alumine rida, et Session ei oleks liiga servas */
+    /* FIX: score-bottom stacked vertically, centered */
     .score-bottom {
       margin-top: 0.9rem;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      padding-right: 6px;
+      gap: 0.5rem;
     }
 
     .score-meta {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--tx-faint);
       font-family: 'IBM Plex Mono', monospace;
     }
@@ -925,7 +945,7 @@
     }
 
     .price-list li::before {
-      content: "›";
+      content: "&#8250;";
       font-family: "IBM Plex Mono", monospace;
       color: var(--sig);
       font-size: 0.9rem;
@@ -1076,7 +1096,7 @@
       font-style: normal;
     }
 
-    /* CTA END */
+    /* CTA END - FIXED: compact form, no oversized capsule */
 
     .cta-end {
       background: var(--bg);
@@ -1098,22 +1118,25 @@
 
     .cta-form {
       display: flex;
-      gap: 0.75rem;
-      max-width: 420px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      max-width: 380px;
       margin: 0 auto 1rem;
-      flex-wrap: wrap;
     }
 
     .cta-input {
-      flex: 1 1 220px;
-      border-radius: 999px;
+      width: 100%;
+      border-radius: var(--radius-md);
       border: 1px solid var(--border);
-      background: rgba(10,14,22,0.95);
+      background: var(--panel);
       color: var(--tx);
-      padding: 0.85rem 1rem;
-      font-size: 0.92rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-family: inherit;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-align: center;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .cta-input::placeholder {
@@ -1122,42 +1145,34 @@
 
     .cta-input:focus {
       border-color: var(--sig);
-      box-shadow: 0 0 0 1px var(--sig), 0 0 26px rgba(0,227,178,0.22);
-      background: #050812;
+      box-shadow: 0 0 0 1px var(--sig), 0 0 20px rgba(0,227,178,0.18);
     }
 
     .cta-button {
-      border-radius: 999px;
+      width: 100%;
+      border-radius: var(--radius-md);
       border: none;
-      padding: 0.9rem 1.7rem;
+      padding: 0.8rem 1.5rem;
       font-size: 0.9rem;
       font-weight: 600;
+      font-family: inherit;
       background: var(--sig);
       color: #020308;
       cursor: pointer;
       white-space: nowrap;
-      box-shadow: 0 14px 44px var(--sig-glow);
+      box-shadow: 0 10px 32px var(--sig-glow);
       transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
     }
 
     .cta-button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 54px var(--sig-glow);
+      box-shadow: 0 14px 44px var(--sig-glow);
       background: #00d4a7;
     }
 
     .cta-fine {
       font-size: 0.78rem;
       color: var(--tx-faint);
-    }
-
-    @media (max-width: 640px) {
-      .cta-form {
-        flex-direction: column;
-      }
-      .cta-button {
-        width: 100%;
-      }
     }
 
     /* FOOTER */
@@ -1219,11 +1234,23 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Subtle glow pulse on score card */
+    @keyframes card-glow {
+      0%, 100% { box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 rgba(0,227,178,0); }
+      50% { box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 60px rgba(0,227,178,0.08); }
+    }
+
+    .score-card {
+      animation: card-glow 4s ease-in-out infinite;
+    }
   </style>
+
 </head>
 <body>
 
   <!-- NAV -->
+
   <nav>
     <div class="nav-inner">
       <div class="brand">
@@ -1240,8 +1267,10 @@
   </nav>
 
   <!-- HERO -->
+
   <main>
     <section class="hero">
+      <canvas id="heroCanvas"></canvas>
       <div class="wrap">
         <div class="hero-grid">
           <div class="hero-left rv">
@@ -1256,7 +1285,7 @@
               ThinQual measures which cognitive functions you're delegating to AI, tracks the erosion in real time, and trains the exact neural pathways weakening. While you keep working.
             </p>
             <div class="hero-actions">
-              <button class="btn-primary">Get early access →</button>
+              <button class="btn-primary">Get early access &#8594;</button>
               <a href="#whitepaper" class="btn-ghost">
                 Read the whitepaper
               </a>
@@ -1266,476 +1295,480 @@
             </p>
           </div>
 
-          <div class="hero-score rv">
-            <aside class="score-card">
-              <div class="score-label">Cognitive fitness index</div>
-              <div class="score-shell">
-                <svg class="score-svg" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#00E3B2" />
-                      <stop offset="60%" stop-color="#F2A545" />
-                      <stop offset="100%" stop-color="#FF5A3C" />
-                    </linearGradient>
-                  </defs>
+```
+      <div class="hero-score rv">
+        <aside class="score-card">
+          <div class="score-label">Cognitive fitness index</div>
+          <div class="score-shell">
+            <svg class="score-svg" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00E3B2" />
+                  <stop offset="60%" stop-color="#F2A545" />
+                  <stop offset="100%" stop-color="#FF5A3C" />
+                </linearGradient>
+              </defs>
 
-                  <!-- background ring -->
-                  <circle cx="130" cy="130" r="96"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.08)"
-                          stroke-width="3" />
+              <!-- background ring -->
+              <circle cx="130" cy="130" r="96"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.08)"
+                      stroke-width="3" />
 
-                  <!-- score ring -->
-                  <circle id="scoreRing"
-                          cx="130" cy="130" r="96"
-                          fill="none"
-                          stroke="url(#ringGradient)"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-dasharray="603"
-                          stroke-dashoffset="603"
-                          transform="rotate(-90 130 130)" />
+              <!-- score ring -->
+              <circle id="scoreRing"
+                      cx="130" cy="130" r="96"
+                      fill="none"
+                      stroke="url(#ringGradient)"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-dasharray="603"
+                      stroke-dashoffset="603"
+                      transform="rotate(-90 130 130)" />
 
-                  <!-- inner guide -->
-                  <circle cx="130" cy="130" r="82"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.05)"
-                          stroke-width="1" />
+              <!-- inner guide -->
+              <circle cx="130" cy="130" r="82"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.05)"
+                      stroke-width="1" />
 
-                  <!-- label -->
-                  <text x="50%" y="40%" text-anchor="middle"
-                        class="sc-label">
-                    THINQUAL SCORE
-                  </text>
+              <!-- label -->
+              <text x="50%" y="40%" text-anchor="middle"
+                    class="sc-label">
+                THINQUAL SCORE
+              </text>
 
-                  <!-- score value -->
-                  <text id="scoreValue"
-                        x="50%" y="51%"
-                        text-anchor="middle"
-                        dominant-baseline="middle"
-                        class="sc-num">
-                    0
-                  </text>
+              <!-- score value -->
+              <text id="scoreValue"
+                    x="50%" y="51%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    class="sc-num">
+                0
+              </text>
 
-                  <!-- delta -->
-                  <text x="50%" y="62%"
-                        text-anchor="middle"
-                        class="sc-delta">
-                    ▼ 12 pts / 90 days
-                  </text>
-                </svg>
-              </div>
-
-              <div class="score-footnote">
-                <span>Baseline: high-autonomy knowledge work</span>
-                <span>73 / 100</span>
-              </div>
-
-              <div class="delegation-list">
-                <div class="delegation-item">
-                  <b>Deep reasoning</b>
-                  34% capacity lost without AI
-                </div>
-                <div class="delegation-item">
-                  <b>Creative synthesis</b>
-                  28% offloaded to models
-                </div>
-                <div class="delegation-item">
-                  <b>Sustained attention</b>
-                  19% improvement when retrained
-                </div>
-                <div class="delegation-item">
-                  <b>Error detection</b>
-                  41% silently delegated
-                </div>
-              </div>
-
-              <div class="score-bottom">
-                <span class="badge-risk">
-                  <span class="badge-risk-dot"></span>
-                  Delegation risk rising
-                </span>
-                <span class="score-meta">Session 184 · v0.9</span>
-              </div>
-            </aside>
+              <!-- delta -->
+              <text x="50%" y="62%"
+                    text-anchor="middle"
+                    class="sc-delta">
+                &#9660; 12 pts / 90 days
+              </text>
+            </svg>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- STATS -->
-    <section class="stats">
-      <div class="wrap">
-        <div class="stats-row rv" id="statsRow">
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="3">0</span><b>B+</b></div>
-            <div class="stat-label">projected AI users by 2030</div>
+          <div class="score-footnote">
+            <span>Baseline: high-autonomy knowledge work</span>
+            <span>73 / 100</span>
           </div>
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="47">0</span><b>%</b></div>
-            <div class="stat-label">report reduced problem-solving</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number"><span class="stat-counter" data-target="0">0</span></div>
-            <div class="stat-label">tools measuring cognitive delegation</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SCIENCE -->
-    <section class="section-science" id="science">
-      <div class="wrap">
-        <div class="science-grid">
-          <div class="science-text rv">
-            <div class="section-tag">The GPS precedent</div>
-            <h2 class="section-title">
-              We have seen this before. One function. Measurable damage.
-            </h2>
-            <p>
-              In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced
-              <strong>measurable shrinkage of the posterior hippocampus</strong> — the brain region for spatial memory.
-            </p>
-            <p>
-              The technology worked perfectly. The brain adapted by
-              <strong>discarding what it no longer needed.</strong>
-            </p>
-            <p>
-              GPS offloaded <strong>one</strong> cognitive function. AI offloads
-              <strong>dozens</strong> — simultaneously. Writing, analysis, reasoning, decision-making. The entire upper cortex.
-            </p>
-            <div class="callout">
-              The erosion is invisible because the tool causing it is always there to compensate. You discover the damage only when the AI is unavailable — and by then it's already significant.
+          <div class="delegation-list">
+            <div class="delegation-item">
+              <b>Deep reasoning</b>
+              34% capacity lost without AI
+            </div>
+            <div class="delegation-item">
+              <b>Creative synthesis</b>
+              28% offloaded to models
+            </div>
+            <div class="delegation-item">
+              <b>Sustained attention</b>
+              19% improvement when retrained
+            </div>
+            <div class="delegation-item">
+              <b>Error detection</b>
+              41% silently delegated
             </div>
           </div>
 
-          <aside class="risk-map rv">
-            <div class="section-tag section-tag--warn" style="margin-bottom:1rem;">
-              Delegation risk map
-            </div>
-
-            <div class="risk-row">
-              <div class="risk-name">Deep reasoning</div>
-              <div class="risk-pct risk-pct--high">87% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--high" data-width="87"></div>
-            </div>
-            <div class="risk-sub">Complex multi-step problem solving without AI.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Creative synthesis</div>
-              <div class="risk-pct risk-pct--high">74% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--high" data-width="74"></div>
-            </div>
-            <div class="risk-sub">Combining disparate ideas into novel solutions.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Sustained attention</div>
-              <div class="risk-pct risk-pct--med">61% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--med" data-width="61"></div>
-            </div>
-            <div class="risk-sub">Holding a single complex task in focus.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Error detection</div>
-              <div class="risk-pct risk-pct--med">53% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--med" data-width="53"></div>
-            </div>
-            <div class="risk-sub">Recognising when something is wrong in output.</div>
-
-            <div class="risk-row">
-              <div class="risk-name">Working memory</div>
-              <div class="risk-pct risk-pct--low">38% delegated</div>
-            </div>
-            <div class="risk-bar-track">
-              <div class="risk-bar-fill risk-bar-fill--low" data-width="38"></div>
-            </div>
-            <div class="risk-sub">Holding multiple variables simultaneously.</div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section class="timeline">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--sig">What happens next</div>
-          <h2 class="section-title">The predictable timeline</h2>
-          <p class="section-desc">
-            The sequence is structurally inevitable. The only variable is whether you are measuring when it arrives.
-          </p>
-        </div>
-
-        <div class="timeline-rail">
-          <article class="timeline-card rv">
-            <div class="timeline-year">2026 – 2027</div>
-            <div class="timeline-title">Silent accumulation</div>
-            <p class="timeline-copy">
-              80%+ of professional tasks involve AI. No metrics exist for cognitive dependency. Workers feel productive. Brains quietly weaken.
-            </p>
-            <div class="timeline-ghost">01</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2027 – 2028</div>
-            <div class="timeline-title">First signals</div>
-            <p class="timeline-copy">
-              Peer-reviewed studies document measurable cognitive changes. Tech industry dismisses findings as alarmist.
-            </p>
-            <div class="timeline-ghost">02</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2028 – 2029</div>
-            <div class="timeline-title">The reckoning</div>
-            <p class="timeline-copy">
-              Workers cannot function during AI outages. Insurers price “cognitive dependency risk.” Demand becomes urgent.
-            </p>
-            <div class="timeline-ghost">03</div>
-          </article>
-
-          <article class="timeline-card rv">
-            <div class="timeline-year">2029 – 2030</div>
-            <div class="timeline-title">Regulation arrives</div>
-            <p class="timeline-copy">
-              EU proposes cognitive impact assessments. Employers require fitness scores. ThinQual holds 3–4 years of data.
-            </p>
-            <div class="timeline-ghost">04</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOLUTION -->
-    <section class="solution" id="solution">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag">How ThinQual works</div>
-          <h2 class="section-title">Three layers of cognitive protection</h2>
-          <p class="section-desc">
-            ThinQual doesn't fight AI. It trains your brain to remain capable despite AI. You keep working exactly as before.
-          </p>
-        </div>
-
-        <div class="solution-grid">
-          <article class="solution-card rv">
-            <div class="solution-pill">CDM</div>
-            <div class="solution-tag">CDM · Cognitive Delegation Map</div>
-            <h3 class="solution-title">Delegation monitoring</h3>
-            <p class="solution-copy">
-              Observes your AI interactions. Maps which cognitive functions you're delegating. Outputs a continuously updated ThinQual Score — your personal cognitive fitness index.
-            </p>
-          </article>
-
-          <article class="solution-card rv">
-            <div class="solution-pill">PNT</div>
-            <div class="solution-tag">PNT · Precision Neural Training</div>
-            <h3 class="solution-title">Precision training</h3>
-            <p class="solution-copy">
-              Daily exercises targeting the exact functions being eroded. Not generic brain games. Calibrated to your delegation patterns. Difficulty adapts in real time.
-            </p>
-          </article>
-
-          <article class="solution-card rv">
-            <div class="solution-pill">IRD</div>
-            <div class="solution-tag">IRD · Institutional Risk Dashboard</div>
-            <h3 class="solution-title">Risk dashboard</h3>
-            <p class="solution-copy">
-              For organizations: anonymized cognitive fitness across teams. Identifies roles where erosion poses operational risk. Intervention before crisis.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRIGGER -->
-    <section class="trigger">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--warn" style="text-align:center;">The trigger event</div>
-          <div class="trigger-quote">
-            Within 18 months, a major AI outage will reveal that employees <em>cannot perform their core functions</em> without AI. Not because systems are down — but because they have <em>lost the cognitive ability</em> to do the work.
+          <div class="score-bottom">
+            <span class="badge-risk">
+              <span class="badge-risk-dot"></span>
+              Delegation risk rising
+            </span>
+            <span class="score-meta">Session 184 &#183; v0.9</span>
           </div>
-          <p class="trigger-body">
-            ThinQual doesn't need to create demand. The demand will be created by an inevitable failure. We need to exist, be refined, and hold data when that moment arrives.
-          </p>
-          <button class="btn-primary">
-            Be ready before the market wakes up →
-          </button>
-        </div>
+        </aside>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- PRICING -->
-    <section class="pricing" id="pricing">
-      <div class="wrap">
-        <div class="rv" style="text-align:center;">
-          <div class="section-tag">Pricing</div>
-          <h2 class="section-title" style="color:var(--tx-dark);">Start measuring. Stay sharp.</h2>
-        </div>
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-row rv" id="statsRow">
+      <div class="stat">
+        <div class="stat-number"><span class="stat-counter" data-target="3">0</span><b>B+</b></div>
+        <div class="stat-label">projected AI users by 2030</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number"><span class="stat-counter" data-target="47">0</span><b>%</b></div>
+        <div class="stat-label">report reduced problem-solving</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number"><span class="stat-counter" data-target="0">0</span></div>
+        <div class="stat-label">tools measuring cognitive delegation</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="pricing-grid">
-          <article class="price-card rv">
-            <div class="price-tier">Free</div>
-            <div class="price-amt">€0</div>
-            <p class="price-desc">See your baseline cognitive fitness.</p>
-            <ul class="price-list">
-              <li>Basic ThinQual Score</li>
-              <li>Weekly score updates</li>
-              <li>Delegation overview</li>
-            </ul>
-            <button class="price-btn">Get started</button>
-          </article>
-
-          <article class="price-card price-card--featured rv">
-            <div class="price-badge">Recommended</div>
-            <div class="price-tier">Personal</div>
-            <div class="price-amt">€7.99 <span>/mo</span></div>
-            <p class="price-desc">Daily monitoring and precision training.</p>
-            <ul class="price-list">
-              <li>Daily cognitive monitoring</li>
-              <li>Precision Neural Training</li>
-              <li>Trend analysis &amp; forecasting</li>
-              <li>Erosion alerts</li>
-            </ul>
-            <button class="price-btn">Start free trial</button>
-          </article>
-
-          <article class="price-card rv">
-            <div class="price-tier">Pro</div>
-            <div class="price-amt">€14.99 <span>/mo</span></div>
-            <p class="price-desc">Full analytics and cognitive forecasting.</p>
-            <ul class="price-list">
-              <li>Everything in Personal</li>
-              <li>Detailed analytics dashboard</li>
-              <li>Exportable reports</li>
-              <li>Multi-device tracking</li>
-            </ul>
-            <button class="price-btn">Start free trial</button>
-          </article>
-        </div>
-
-        <p class="pricing-note">
-          Enterprise: from €19.99/seat/month · <a href="#contact">Contact us →</a>
+<!-- SCIENCE -->
+<section class="section-science" id="science">
+  <div class="wrap">
+    <div class="science-grid">
+      <div class="science-text rv">
+        <div class="section-tag">The GPS precedent</div>
+        <h2 class="section-title">
+          We have seen this before. One function. Measurable damage.
+        </h2>
+        <p>
+          In 2017, UCL researchers found that London taxi drivers who switched to GPS experienced
+          <strong>measurable shrinkage of the posterior hippocampus</strong> &#8212; the brain region for spatial memory.
         </p>
-      </div>
-    </section>
-
-    <!-- MOAT -->
-    <section class="moat">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag section-tag--sig">Defensibility</div>
-          <h2 class="section-title">The moat deepens every single day</h2>
-        </div>
-
-        <div class="moat-grid">
-          <article class="moat-card rv">
-            <h3>Data advantage</h3>
-            <p>
-              Every day generates cognitive delegation data no competitor can replicate without equivalent time in market. By 2028 — the world's largest human–AI cognitive interaction dataset.
-            </p>
-          </article>
-
-          <article class="moat-card rv">
-            <h3>Behavioral lock-in</h3>
-            <p>
-              Users build a longitudinal cognitive profile that grows more valuable over time. Switching means losing years of personal cognitive history — like losing your medical records.
-            </p>
-          </article>
-
-          <article class="moat-card rv">
-            <h3>Standard-setting</h3>
-            <p>
-              First mover defines the methodology. ThinQual Score becomes the cognitive FICO — the number institutions require and individuals track.
-            </p>
-          </article>
-
-          <article class="moat-card rv">
-            <h3>Network effects</h3>
-            <p>
-              More users, more accurate erosion models across demographics, professions, and AI patterns. Winner-take-most dynamics in data-driven health.
-            </p>
-          </article>
+        <p>
+          The technology worked perfectly. The brain adapted by
+          <strong>discarding what it no longer needed.</strong>
+        </p>
+        <p>
+          GPS offloaded <strong>one</strong> cognitive function. AI offloads
+          <strong>dozens</strong> &#8212; simultaneously. Writing, analysis, reasoning, decision-making. The entire upper cortex.
+        </p>
+        <div class="callout">
+          The erosion is invisible because the tool causing it is always there to compensate. You discover the damage only when the AI is unavailable &#8212; and by then it's already significant.
         </div>
       </div>
-    </section>
 
-    <!-- PATTERN -->
-    <section class="pattern">
-      <div class="wrap">
-        <div class="rv">
-          <div class="section-tag">The structural inevitability</div>
-          <h2 class="section-title" style="color:var(--tx-dark);text-align:center;">
-            Every major technology created<br> a safety industry
-          </h2>
+      <aside class="risk-map rv">
+        <div class="section-tag section-tag--warn" style="margin-bottom:1rem;">
+          Delegation risk map
+        </div>
 
-          <div class="pattern-list">
-            <div class="pattern-row">
-              <span class="pattern-era">Industrial Revolution</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Occupational safety</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Automobile</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Auto insurance</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Internet</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Cybersecurity</span>
-            </div>
-            <div class="pattern-row">
-              <span class="pattern-era">Social media</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Digital wellbeing</span>
-            </div>
-            <div class="pattern-row pattern-row--now">
-              <span class="pattern-era">Artificial Intelligence</span>
-              <span class="pattern-arrow">→</span>
-              <span class="pattern-res">Cognitive fitness</span>
-            </div>
-          </div>
+        <div class="risk-row">
+          <div class="risk-name">Deep reasoning</div>
+          <div class="risk-pct risk-pct--high">87% delegated</div>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill risk-bar-fill--high" data-width="87"></div>
+        </div>
+        <div class="risk-sub">Complex multi-step problem solving without AI.</div>
 
-          <p class="pattern-end">
-            The question is not whether this market will exist.<br>
-            The question is <em>who will define it.</em>
-          </p>
+        <div class="risk-row">
+          <div class="risk-name">Creative synthesis</div>
+          <div class="risk-pct risk-pct--high">74% delegated</div>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill risk-bar-fill--high" data-width="74"></div>
+        </div>
+        <div class="risk-sub">Combining disparate ideas into novel solutions.</div>
+
+        <div class="risk-row">
+          <div class="risk-name">Sustained attention</div>
+          <div class="risk-pct risk-pct--med">61% delegated</div>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill risk-bar-fill--med" data-width="61"></div>
+        </div>
+        <div class="risk-sub">Holding a single complex task in focus.</div>
+
+        <div class="risk-row">
+          <div class="risk-name">Error detection</div>
+          <div class="risk-pct risk-pct--med">53% delegated</div>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill risk-bar-fill--med" data-width="53"></div>
+        </div>
+        <div class="risk-sub">Recognising when something is wrong in output.</div>
+
+        <div class="risk-row">
+          <div class="risk-name">Working memory</div>
+          <div class="risk-pct risk-pct--low">38% delegated</div>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill risk-bar-fill--low" data-width="38"></div>
+        </div>
+        <div class="risk-sub">Holding multiple variables simultaneously.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="wrap">
+    <div class="rv">
+      <div class="section-tag section-tag--sig">What happens next</div>
+      <h2 class="section-title">The predictable timeline</h2>
+      <p class="section-desc">
+        The sequence is structurally inevitable. The only variable is whether you are measuring when it arrives.
+      </p>
+    </div>
+
+    <div class="timeline-rail">
+      <article class="timeline-card rv">
+        <div class="timeline-year">2026 &#8211; 2027</div>
+        <div class="timeline-title">Silent accumulation</div>
+        <p class="timeline-copy">
+          80%+ of professional tasks involve AI. No metrics exist for cognitive dependency. Workers feel productive. Brains quietly weaken.
+        </p>
+        <div class="timeline-ghost">01</div>
+      </article>
+
+      <article class="timeline-card rv">
+        <div class="timeline-year">2027 &#8211; 2028</div>
+        <div class="timeline-title">First signals</div>
+        <p class="timeline-copy">
+          Peer-reviewed studies document measurable cognitive changes. Tech industry dismisses findings as alarmist.
+        </p>
+        <div class="timeline-ghost">02</div>
+      </article>
+
+      <article class="timeline-card rv">
+        <div class="timeline-year">2028 &#8211; 2029</div>
+        <div class="timeline-title">The reckoning</div>
+        <p class="timeline-copy">
+          Workers cannot function during AI outages. Insurers price "cognitive dependency risk." Demand becomes urgent.
+        </p>
+        <div class="timeline-ghost">03</div>
+      </article>
+
+      <article class="timeline-card rv">
+        <div class="timeline-year">2029 &#8211; 2030</div>
+        <div class="timeline-title">Regulation arrives</div>
+        <p class="timeline-copy">
+          EU proposes cognitive impact assessments. Employers require fitness scores. ThinQual holds 3&#8211;4 years of data.
+        </p>
+        <div class="timeline-ghost">04</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="wrap">
+    <div class="rv">
+      <div class="section-tag">How ThinQual works</div>
+      <h2 class="section-title">Three layers of cognitive protection</h2>
+      <p class="section-desc">
+        ThinQual doesn't fight AI. It trains your brain to remain capable despite AI. You keep working exactly as before.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <article class="solution-card rv">
+        <div class="solution-pill">CDM</div>
+        <div class="solution-tag">CDM &#183; Cognitive Delegation Map</div>
+        <h3 class="solution-title">Delegation monitoring</h3>
+        <p class="solution-copy">
+          Observes your AI interactions. Maps which cognitive functions you're delegating. Outputs a continuously updated ThinQual Score &#8212; your personal cognitive fitness index.
+        </p>
+      </article>
+
+      <article class="solution-card rv">
+        <div class="solution-pill">PNT</div>
+        <div class="solution-tag">PNT &#183; Precision Neural Training</div>
+        <h3 class="solution-title">Precision training</h3>
+        <p class="solution-copy">
+          Daily exercises targeting the exact functions being eroded. Not generic brain games. Calibrated to your delegation patterns. Difficulty adapts in real time.
+        </p>
+      </article>
+
+      <article class="solution-card rv">
+        <div class="solution-pill">IRD</div>
+        <div class="solution-tag">IRD &#183; Institutional Risk Dashboard</div>
+        <h3 class="solution-title">Risk dashboard</h3>
+        <p class="solution-copy">
+          For organizations: anonymized cognitive fitness across teams. Identifies roles where erosion poses operational risk. Intervention before crisis.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TRIGGER -->
+<section class="trigger">
+  <div class="wrap">
+    <div class="rv">
+      <div class="section-tag section-tag--warn" style="text-align:center;">The trigger event</div>
+      <div class="trigger-quote">
+        Within 18 months, a major AI outage will reveal that employees <em>cannot perform their core functions</em> without AI. Not because systems are down &#8212; but because they have <em>lost the cognitive ability</em> to do the work.
+      </div>
+      <p class="trigger-body">
+        ThinQual doesn't need to create demand. The demand will be created by an inevitable failure. We need to exist, be refined, and hold data when that moment arrives.
+      </p>
+      <button class="btn-primary">
+        Be ready before the market wakes up &#8594;
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title" style="color:var(--tx-dark);">Start measuring. Stay sharp.</h2>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card rv">
+        <div class="price-tier">Free</div>
+        <div class="price-amt">&#8364;0</div>
+        <p class="price-desc">See your baseline cognitive fitness.</p>
+        <ul class="price-list">
+          <li>Basic ThinQual Score</li>
+          <li>Weekly score updates</li>
+          <li>Delegation overview</li>
+        </ul>
+        <button class="price-btn">Get started</button>
+      </article>
+
+      <article class="price-card price-card--featured rv">
+        <div class="price-badge">Recommended</div>
+        <div class="price-tier">Personal</div>
+        <div class="price-amt">&#8364;7.99 <span>/mo</span></div>
+        <p class="price-desc">Daily monitoring and precision training.</p>
+        <ul class="price-list">
+          <li>Daily cognitive monitoring</li>
+          <li>Precision Neural Training</li>
+          <li>Trend analysis &amp; forecasting</li>
+          <li>Erosion alerts</li>
+        </ul>
+        <button class="price-btn">Start free trial</button>
+      </article>
+
+      <article class="price-card rv">
+        <div class="price-tier">Pro</div>
+        <div class="price-amt">&#8364;14.99 <span>/mo</span></div>
+        <p class="price-desc">Full analytics and cognitive forecasting.</p>
+        <ul class="price-list">
+          <li>Everything in Personal</li>
+          <li>Detailed analytics dashboard</li>
+          <li>Exportable reports</li>
+          <li>Multi-device tracking</li>
+        </ul>
+        <button class="price-btn">Start free trial</button>
+      </article>
+    </div>
+
+    <p class="pricing-note">
+      Enterprise: from &#8364;19.99/seat/month &#183; <a href="#contact">Contact us &#8594;</a>
+    </p>
+  </div>
+</section>
+
+<!-- MOAT -->
+<section class="moat">
+  <div class="wrap">
+    <div class="rv">
+      <div class="section-tag section-tag--sig">Defensibility</div>
+      <h2 class="section-title">The moat deepens every single day</h2>
+    </div>
+
+    <div class="moat-grid">
+      <article class="moat-card rv">
+        <h3>Data advantage</h3>
+        <p>
+          Every day generates cognitive delegation data no competitor can replicate without equivalent time in market. By 2028 &#8212; the world's largest human&#8211;AI cognitive interaction dataset.
+        </p>
+      </article>
+
+      <article class="moat-card rv">
+        <h3>Behavioral lock-in</h3>
+        <p>
+          Users build a longitudinal cognitive profile that grows more valuable over time. Switching means losing years of personal cognitive history &#8212; like losing your medical records.
+        </p>
+      </article>
+
+      <article class="moat-card rv">
+        <h3>Standard-setting</h3>
+        <p>
+          First mover defines the methodology. ThinQual Score becomes the cognitive FICO &#8212; the number institutions require and individuals track.
+        </p>
+      </article>
+
+      <article class="moat-card rv">
+        <h3>Network effects</h3>
+        <p>
+          More users, more accurate erosion models across demographics, professions, and AI patterns. Winner-take-most dynamics in data-driven health.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PATTERN -->
+<section class="pattern">
+  <div class="wrap">
+    <div class="rv">
+      <div class="section-tag">The structural inevitability</div>
+      <h2 class="section-title" style="color:var(--tx-dark);text-align:center;">
+        Every major technology created<br> a safety industry
+      </h2>
+
+      <div class="pattern-list">
+        <div class="pattern-row">
+          <span class="pattern-era">Industrial Revolution</span>
+          <span class="pattern-arrow">&#8594;</span>
+          <span class="pattern-res">Occupational safety</span>
+        </div>
+        <div class="pattern-row">
+          <span class="pattern-era">Automobile</span>
+          <span class="pattern-arrow">&#8594;</span>
+          <span class="pattern-res">Auto insurance</span>
+        </div>
+        <div class="pattern-row">
+          <span class="pattern-era">Internet</span>
+          <span class="pattern-arrow">&#8594;</span>
+          <span class="pattern-res">Cybersecurity</span>
+        </div>
+        <div class="pattern-row">
+          <span class="pattern-era">Social media</span>
+          <span class="pattern-arrow">&#8594;</span>
+          <span class="pattern-res">Digital wellbeing</span>
+        </div>
+        <div class="pattern-row pattern-row--now">
+          <span class="pattern-era">Artificial Intelligence</span>
+          <span class="pattern-arrow">&#8594;</span>
+          <span class="pattern-res">Cognitive fitness</span>
         </div>
       </div>
-    </section>
 
-    <!-- CTA END -->
-    <section class="cta-end">
-      <div class="wrap">
-        <div class="rv">
-          <h2 class="section-title">
-            The category will be created exactly once.
-          </h2>
-          <p class="section-desc">
-            Get early access and protect your most valuable asset — the ability to think independently.
-          </p>
+      <p class="pattern-end">
+        The question is not whether this market will exist.<br>
+        The question is <em>who will define it.</em>
+      </p>
+    </div>
+  </div>
+</section>
 
-          <form class="cta-form" onsubmit="event.preventDefault();">
-            <input class="cta-input" type="email" placeholder="your@email.com">
-            <button class="cta-button" type="submit">Get early access</button>
-          </form>
-          <p class="cta-fine">No credit card. Free tier at launch.</p>
-        </div>
+<!-- CTA END -->
+<section class="cta-end">
+  <div class="wrap">
+    <div class="rv">
+      <h2 class="section-title">
+        The category will be created exactly once.
+      </h2>
+      <p class="section-desc">
+        Get early access and protect your most valuable asset &#8212; the ability to think independently.
+      </p>
+
+      <div class="cta-form">
+        <input class="cta-input" type="email" placeholder="your@email.com">
+        <button class="cta-button" type="button">Get early access</button>
       </div>
-    </section>
+      <p class="cta-fine">No credit card. Free tier at launch.</p>
+    </div>
+  </div>
+</section>
+```
+
   </main>
 
   <!-- FOOTER -->
+
   <footer id="contact">
     <div class="wrap" style="text-align:center;">
       <div class="ft-brand">Thin<b>Qual</b></div>
@@ -1747,39 +1780,123 @@
         <li><a href="#">Terms</a></li>
         <li><a href="mailto:hello@thinqual.com">Contact</a></li>
       </ul>
-      <div class="ft-copy">© 2026 ThinQual. All rights reserved.</div>
+      <div class="ft-copy">&#169; 2026 ThinQual. All rights reserved.</div>
     </div>
   </footer>
 
   <script>
-    // Reveal on scroll
-    const revealObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("on");
-          revealObserver.unobserve(entry.target);
+    /* ---- Hero particle canvas ---- */
+    (function() {
+      var c = document.getElementById("heroCanvas");
+      if (!c) return;
+      var ctx = c.getContext("2d");
+      var W, H, particles = [], mouse = { x: -999, y: -999 };
+
+      function resize() {
+        var rect = c.parentElement.getBoundingClientRect();
+        W = c.width = rect.width;
+        H = c.height = rect.height;
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        var count = Math.min(Math.floor(W * H / 12000), 80);
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 1.5 + 0.5,
+            base: Math.random() * 0.12 + 0.06
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = W;
+          if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H;
+          if (p.y > H) p.y = 0;
+
+          /* connect nearby */
+          for (var j = i + 1; j < particles.length; j++) {
+            var dx = particles[j].x - p.x;
+            var dy = particles[j].y - p.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              ctx.strokeStyle = "rgba(0,227,178," + ((1 - dist / 130) * 0.09) + ")";
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+
+          /* mouse proximity glow */
+          var md = Math.sqrt((mouse.x - p.x) * (mouse.x - p.x) + (mouse.y - p.y) * (mouse.y - p.y));
+          var alpha = md < 140 ? 0.5 : p.base;
+
+          ctx.fillStyle = "rgba(0,227,178," + alpha + ")";
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", function() { resize(); });
+      c.parentElement.addEventListener("mousemove", function(e) {
+        var rect = c.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      c.parentElement.addEventListener("mouseleave", function() {
+        mouse.x = -999;
+        mouse.y = -999;
+      });
+
+      init();
+      draw();
+    })();
+
+    /* ---- Reveal on scroll ---- */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add("on");
+          revealObserver.unobserve(entries[i].target);
         }
       }
     }, { threshold: 0.15 });
 
-    document.querySelectorAll(".rv").forEach(el => revealObserver.observe(el));
+    document.querySelectorAll(".rv").forEach(function(el) { revealObserver.observe(el); });
 
-    // Animate score ring + number
-    const scoreRing = document.getElementById("scoreRing");
-    const scoreValue = document.getElementById("scoreValue");
-    const targetScore = 73;
-    const ringLength = 603;
+    /* ---- Animate score ring + number ---- */
+    var scoreRing = document.getElementById("scoreRing");
+    var scoreValue = document.getElementById("scoreValue");
+    var targetScore = 73;
+    var ringLength = 603;
 
     function animateScore() {
-      const duration = 1800;
-      const start = performance.now();
+      var duration = 1800;
+      var start = performance.now();
 
       function frame(now) {
-        const t = Math.min(1, (now - start) / duration);
-        const eased = 1 - Math.pow(1 - t, 3);
-        const val = Math.round(targetScore * eased);
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var val = Math.round(targetScore * eased);
         scoreValue.textContent = val;
-        const offset = ringLength * (1 - eased * targetScore / 100);
+        var offset = ringLength * (1 - eased * targetScore / 100);
         scoreRing.style.strokeDashoffset = offset.toString();
         if (t < 1) requestAnimationFrame(frame);
       }
@@ -1787,62 +1904,63 @@
       requestAnimationFrame(frame);
     }
 
-    const heroScoreObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
+    var heroScoreObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
           animateScore();
-          heroScoreObserver.unobserve(entry.target);
+          heroScoreObserver.unobserve(entries[i].target);
         }
       }
     }, { threshold: 0.5 });
 
     heroScoreObserver.observe(document.querySelector(".score-card"));
 
-    // Stats counters
-    const statsRow = document.getElementById("statsRow");
-    const statsObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const counters = entry.target.querySelectorAll(".stat-counter");
-        counters.forEach(counter => {
-          const target = Number(counter.dataset.target || 0);
+    /* ---- Stats counters ---- */
+    var statsRow = document.getElementById("statsRow");
+    var statsObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        var counters = entries[i].target.querySelectorAll(".stat-counter");
+        counters.forEach(function(counter) {
+          var target = Number(counter.dataset.target || 0);
           if (!target) {
             counter.textContent = "0";
             return;
           }
-          const duration = 1600;
-          const start = performance.now();
+          var duration = 1600;
+          var start = performance.now();
 
           function step(now) {
-            const t = Math.min(1, (now - start) / duration);
-            const eased = 1 - Math.pow(1 - t, 3);
-            let current = target * eased;
+            var t = Math.min(1, (now - start) / duration);
+            var eased = 1 - Math.pow(1 - t, 3);
+            var current = target * eased;
             current = target >= 10 ? Math.round(current) : Math.round(current * 10) / 10;
             counter.textContent = target >= 10 ? current : current.toFixed(1);
             if (t < 1) requestAnimationFrame(step);
           }
           requestAnimationFrame(step);
         });
-        statsObserver.unobserve(entry.target);
+        statsObserver.unobserve(entries[i].target);
       }
     }, { threshold: 0.5 });
 
     statsObserver.observe(statsRow);
 
-    // Risk bar animation
-    const riskMap = document.querySelector(".risk-map");
-    const riskObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.querySelectorAll(".risk-bar-fill").forEach(el => {
-          const w = el.getAttribute("data-width") || "0";
+    /* ---- Risk bar animation ---- */
+    var riskMap = document.querySelector(".risk-map");
+    var riskObserver = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        entries[i].target.querySelectorAll(".risk-bar-fill").forEach(function(el) {
+          var w = el.getAttribute("data-width") || "0";
           el.style.width = w + "%";
         });
-        riskObserver.unobserve(entry.target);
+        riskObserver.unobserve(entries[i].target);
       }
     }, { threshold: 0.35 });
 
     riskObserver.observe(riskMap);
   </script>
+
 </body>
 </html>
